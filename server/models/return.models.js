@@ -11,4 +11,6 @@ const returnSchema = new mongoose.Schema({
         ref: 'student',
         required: true
     }
-})
+}, { timestamps: true })
+
+module.exports = mongoose.model('return', returnSchema)

@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema({
         required: true,
         minlength: [3, 'Last name(s) must have atleast 3 characters']
     },
-    class: {
+    theClass: {
         type: String,
         required: true,
     },
@@ -28,9 +28,11 @@ const studentSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
-module.exports = mongoose.model('Student', studentSchema)
+studentSchema.statics.signup = async function (firstName, lastName, theClass, email, password) {
+    if (!firstName || !lastName || !theClass || !email || !password) {
+        throw Error("All fields are required!")
+    }
 
-studentSchema.statics.signup = async function (firstname, lastname, email, password) {
     if (!validator.isEmail(email)) {
         throw Error("Enter a valid email")
     }
@@ -46,7 +48,9 @@ studentSchema.statics.signup = async function (firstname, lastname, email, passw
     }
 
     const thePassword = await bcrypt.hash(password, 10)
-    const student = { firstname, lastname, email, password: thePassword }
+    const student = await this.create({ firstName, lastName, theClass, email, password: thePassword })
 
     return student
 }
+
+module.exports = mongoose.model('Student', studentSchema)

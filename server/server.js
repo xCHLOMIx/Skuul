@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const PORT = process.env.PORT
 const bookRoutes = require('./routes/book.routes')
+const studentRoutes = require('./routes/student.routes')
 
 mongoose.connect('mongodb://localhost:27017/Library')
     .then(() => {
@@ -21,3 +22,4 @@ app.use((req, res, next) => {
 })
 
 app.use('/books', bookRoutes)
+app.use('/students', studentRoutes)
