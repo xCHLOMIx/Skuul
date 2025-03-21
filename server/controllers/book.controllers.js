@@ -23,4 +23,22 @@ exports.getBooks = async (req, res) => {
 
 exports.borrowBook = async (req, res) => {
     const { book, student } = req.body
+
+    try {
+        const theBook = await Borrow.create({ book, student })
+        res.status(200).json({ theBook })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+exports.returnBook = async (req, res) => {
+    const { book, student } = req.body
+
+    try {
+        const theBook = await Return.create({ book, student })
+        res.status(200).json({ theBook })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
 }
