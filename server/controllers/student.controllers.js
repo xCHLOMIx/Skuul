@@ -10,3 +10,14 @@ exports.signUp = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
+
+exports.signIn = async (req, res) => {
+    const { email, password } = req.body
+
+    try {
+        const student = await Student.signIn(email, password)
+        res.status(200).json({ message: `${student.email} is logged in.` })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}

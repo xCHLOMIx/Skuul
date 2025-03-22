@@ -29,9 +29,9 @@ const studentSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 studentSchema.statics.signup = async function (firstName, lastName, theClass, email, password) {
-    if (!firstName || !lastName || !theClass || !email || !password) {
-        throw Error("All fields are required!")
-    }
+    // if (!firstName || !lastName || !theClass || !email || !password) {
+    //     throw Error("All fields are required!")
+    // }
 
     if (!validator.isEmail(email)) {
         throw Error("Enter a valid email")
@@ -51,6 +51,26 @@ studentSchema.statics.signup = async function (firstName, lastName, theClass, em
     const student = await this.create({ firstName, lastName, theClass, email, password: thePassword })
 
     return student
+}
+
+studentSchema.statics.signIn = async function (email, password) {
+    const exists = await this.findOne({ email: email })
+
+    if (!email || !password) {
+        throw Error("All fields are required")
+    }
+
+    if (!exists) {
+        throw Error("No Student with such email!")
+    }
+
+    const isAuth = await bcrypt.compare(password, exists.password)
+
+    if (!isAuth) {
+        throw Error("Incorrect Password")
+    }
+
+    return exists
 }
 
 module.exports = mongoose.model('Student', studentSchema)
