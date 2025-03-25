@@ -6,7 +6,7 @@ const PORT = process.env.PORT
 const bookRoutes = require('./routes/book.routes')
 const studentRoutes = require('./routes/student.routes')
 
-mongoose.connect('mongodb://localhost:27017/Library')
+mongoose.connect('mongodb://localhost:27017/Skuul')
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Connected and running PORT ${PORT}`)

@@ -15,6 +15,11 @@ const bookSchema = new mongoose.Schema({
         type: String,
         default: "Available",
         required: true
+    },
+    quantity: {
+        type: Number,
+        default: 1,
+        required: true
     }
 }, { timestamps: true })
 
