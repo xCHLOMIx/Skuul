@@ -26,6 +26,10 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    books: {
+        type: [mongoose.Types.ObjectId],
+        ref: 'book'
+    }
 }, { timestamps: true })
 
 studentSchema.statics.signup = async function (firstName, lastName, theClass, email, password) {

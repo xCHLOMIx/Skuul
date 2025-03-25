@@ -1,6 +1,5 @@
 const Book = require('../models/book.models')
-const Borrow = require('../models/borrow.models')
-const Return = require('../models/return.models')
+const Student = require('../models/student.models')
 
 exports.createBook = async (req, res) => {
     const { title, author } = req.body
@@ -22,11 +21,18 @@ exports.getBooks = async (req, res) => {
 }
 
 exports.borrowBook = async (req, res) => {
-    const { book, student } = req.body
-
+    const { user, book } = req.body
     try {
-        const theBook = await Borrow.create({ book, student })
-        res.status(200).json({ theBook })
+        const student = await Student.findOne({ _id: user })
+        let books = student['books']
+
+        if (books.includes(book)) {
+            throw Error("Already have that book")
+        }
+
+        books = [...books, book]
+        const theStudent = await Student.findOneAndUpdate({ _id: user }, { $set : { books : books }})
+        res.status(200).json({ theStudent })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
