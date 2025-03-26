@@ -1,17 +1,6 @@
 const Book = require('../models/book.models')
 const Student = require('../models/student.models')
 
-exports.createBook = async (req, res) => {
-    const { title, author } = req.body
-
-    try {
-        const book = await Book.create({ title, author })
-        res.status(200).json({ book })
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
-
 exports.getBooks = async (req, res) => {
     const books = await Book.find()
 
@@ -20,19 +9,51 @@ exports.getBooks = async (req, res) => {
     res.status(200).json({ books })
 }
 
+exports.createBook = async (req, res) => {
+    const { title, author, quantity } = req.body
+
+    try {
+        const book = await Book.create({ title, author, quantity })
+        res.status(200).json({ book })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
 exports.borrowBook = async (req, res) => {
     const { user, book } = req.body
     try {
         const student = await Student.findOne({ _id: user })
         let books = student['books']
 
+        const theBook = await Book.findOne({ _id: book })
+        let quantity = theBook.quantity
+        let status = theBook.status
+
         if (books.includes(book)) {
-            throw Error("Already have that book")
+            throw Error(`You already have ${theBook.title}`)
+        }
+
+        if (status === "Available") {
+            quantity -= 1
+            await Book.findOneAndUpdate(
+                { _id: book },
+                {
+                    $set: {
+                        quantity: quantity,
+                        status: quantity === 0 ? "Unavailable" : "Available"
+                    }
+                }
+            )
+        } else {
+            throw Error(`${theBook.title} is not available`)
         }
 
         books = [...books, book]
-        const theStudent = await Student.findOneAndUpdate({ _id: user }, { $set : { books : books }})
-        res.status(200).json({ theStudent })
+
+        await Student.findOneAndUpdate({ _id: user }, { $set: { books: books } })
+
+        res.status(200).json({ student: student.firstName, theBook })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
