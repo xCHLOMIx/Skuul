@@ -21,39 +21,45 @@ exports.createBook = async (req, res) => {
 }
 
 exports.borrowBook = async (req, res) => {
-    const { student, book } = req.body
+    const { student, borrow } = req.body
+
     try {
         const theStudent = await Student.findOne({ _id: student })
         let books = theStudent['books']
 
-        const theBook = await Book.findOne({ _id: book })
-        let quantity = theBook.quantity
-        let status = theBook.status
+        const borrowed = []
+        for (const book of borrow) {
+            const theBook = await Book.findOne({ _id: book })
+            let quantity = theBook.quantity
+            let status = theBook.status
 
-        if (books.includes(book)) {
-            throw Error(`You already have ${theBook.title}`)
-        }
+            if (books.includes(theBook._id)) {
+                throw Error(`You already have ${theBook.title}`)
+            }
 
-        if (status === "Available") {
-            quantity -= 1
-            await Book.findOneAndUpdate(
-                { _id: book },
-                {
-                    $set: {
-                        quantity: quantity,
-                        status: quantity === 0 ? "Unavailable" : "Available"
+            if (status === "Available") {
+                quantity -= 1
+                await Book.findOneAndUpdate(
+                    { _id: book },
+                    {
+                        $set: {
+                            quantity: quantity,
+                            status: quantity === 0 ? "Unavailable" : "Available"
+                        }
                     }
-                }
-            )
-        } else {
-            throw Error(`${theBook.title} is not available`)
+                )
+                borrowed.push(theBook._id)
+                console.log(borrowed)
+            } else {
+                throw Error(`${theBook.title} is not available`)
+            }
         }
+        books = [...books, ...borrowed]
 
-        books = [...books, book]
 
         await Student.findOneAndUpdate({ _id: student }, { $set: { books: books } })
 
-        res.status(200).json({ student: student.firstName, theBook })
+        res.status(200).json({ student: theStudent.firstName, books })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -64,7 +70,6 @@ exports.returnBook = async (req, res) => {
 
     try {
         const theBook = await Book.findOne({ _id: book })
-        console.log(theBook._id)
         const theStudent = await Student.findOne({ _id: student })
         let books = theStudent.books
         let quantity = theBook.quantity
@@ -83,7 +88,6 @@ exports.returnBook = async (req, res) => {
             }
         )
         books = books.filter((book) => String(book) != theBook._id)
-        console.log(books)
         await Student.findOneAndUpdate(
             { _id: student },
             {
