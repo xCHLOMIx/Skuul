@@ -21,10 +21,10 @@ exports.createBook = async (req, res) => {
 }
 
 exports.borrowBook = async (req, res) => {
-    const { user, book } = req.body
+    const { student, book } = req.body
     try {
-        const student = await Student.findOne({ _id: user })
-        let books = student['books']
+        const theStudent = await Student.findOne({ _id: student })
+        let books = theStudent['books']
 
         const theBook = await Book.findOne({ _id: book })
         let quantity = theBook.quantity
@@ -51,20 +51,48 @@ exports.borrowBook = async (req, res) => {
 
         books = [...books, book]
 
-        await Student.findOneAndUpdate({ _id: user }, { $set: { books: books } })
+        await Student.findOneAndUpdate({ _id: student }, { $set: { books: books } })
 
         res.status(200).json({ student: student.firstName, theBook })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
-
+// Just to check if Wakatime works
 exports.returnBook = async (req, res) => {
     const { book, student } = req.body
 
     try {
-        const theBook = await Return.create({ book, student })
-        res.status(200).json({ theBook })
+        const theBook = await Book.findOne({ _id: book })
+        console.log(theBook._id)
+        const theStudent = await Student.findOne({ _id: student })
+        let books = theStudent.books
+        let quantity = theBook.quantity
+
+        if (!theStudent['books'].includes(book)) {
+            throw Error(`You did not borrow ${theBook.title}`)
+        }
+        quantity += 1
+        await Book.findOneAndUpdate(
+            { _id: book },
+            {
+                $set: {
+                    status: "Available",
+                    quantity: quantity
+                }
+            }
+        )
+        books = books.filter((book) => String(book) != theBook._id)
+        console.log(books)
+        await Student.findOneAndUpdate(
+            { _id: student },
+            {
+                $set: {
+                    books: books
+                }
+            }
+        )
+        res.status(200).json({ message: `Successfully returned ${theBook.title}` })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
