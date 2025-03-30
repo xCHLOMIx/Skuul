@@ -66,28 +66,39 @@ exports.borrowBook = async (req, res) => {
 }
 // Just to check if Wakatime works
 exports.returnBook = async (req, res) => {
-    const { book, student } = req.body
+    const { returns, student } = req.body
 
     try {
-        const theBook = await Book.findOne({ _id: book })
         const theStudent = await Student.findOne({ _id: student })
         let books = theStudent.books
-        let quantity = theBook.quantity
 
-        if (!theStudent['books'].includes(book)) {
-            throw Error(`You did not borrow ${theBook.title}`)
-        }
-        quantity += 1
-        await Book.findOneAndUpdate(
-            { _id: book },
-            {
-                $set: {
-                    status: "Available",
-                    quantity: quantity
-                }
+        const returned = []
+        for (const book of returns) {
+            const theBook = await Book.findOne({ _id: book })
+            let quantity = theBook.quantity
+
+            if (!theStudent['books'].includes(book)) {
+                throw Error(`You did not borrow ${theBook.title}`)
             }
-        )
-        books = books.filter((book) => String(book) != theBook._id)
+
+            quantity = theBook.quantity += 1
+
+            await Book.findOneAndUpdate(
+                { _id: book },
+                {
+                    $set: {
+                        status: "Available",
+                        quantity: quantity
+                    }
+                }
+            )
+
+            returned.push(theBook._id)
+        }
+
+        books = books.filter((book) => !returns.includes(String(book)))
+        console.log(books)
+
         await Student.findOneAndUpdate(
             { _id: student },
             {
@@ -96,7 +107,8 @@ exports.returnBook = async (req, res) => {
                 }
             }
         )
-        res.status(200).json({ message: `Successfully returned ${theBook.title}` })
+
+        res.status(200).json({ message: `Successfully returned all books` })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
