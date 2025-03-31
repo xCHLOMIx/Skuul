@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { links } from '../../data/link'
 import Book from '../../components/universal/Book'
 
-interface Book {
+interface BookInteface {
     _id: string,
     title: string,
     author: string,
@@ -13,7 +12,7 @@ interface Book {
 }
 
 const AdminBooks: React.FC = () => {
-    const [books, setBooks] = useState<Book[]>([])
+    const [books, setBooks] = useState<BookInteface[]>([])
     useEffect(() => {
 
         const fetchData = async () => {
