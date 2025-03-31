@@ -20,12 +20,12 @@ const AdminSidebar: React.FC = () => {
                 ))}
             </div>
             <div>
-                <div className='flex items-center gap-4 cursor-pointer px-4 py-3 justify-between'>
+                <div className='flex items-center gap-4 hover:bg-alt cursor-pointer px-4 py-3 justify-between'>
                     <div className='flex items-center gap-4'>
-                        <div className='bg-primary px-2.5 py-1 outline-2 outline-white'>
+                        <div className='bg-primary px-2 py-0.5  outline-2 outline-white'>
                             <span className='font-bold text-white'>C</span>
                         </div>
-                        <span className='font-medium text-sm text-white'>Profile</span>
+                        <span className='font-medium text-sm text-white'>Log out</span>
                     </div>
                     <FiLogOut size={24} color='white' />
                 </div>
