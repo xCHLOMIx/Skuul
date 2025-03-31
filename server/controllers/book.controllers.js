@@ -6,7 +6,7 @@ exports.getBooks = async (req, res) => {
 
     if (books.length <= 0) return res.status(404).json({ message: "No books found" })
 
-    res.status(200).json({ books })
+    res.status(200).json(books)
 }
 
 exports.createBook = async (req, res) => {
