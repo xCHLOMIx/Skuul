@@ -2,7 +2,7 @@ const Book = require('../models/book.models')
 const Student = require('../models/student.models')
 
 exports.getBooks = async (req, res) => {
-    const books = await Book.find()
+    const books = await Book.find().sort({ title : 1})
 
     if (books.length <= 0) return res.status(404).json({ message: "No books found" })
 
