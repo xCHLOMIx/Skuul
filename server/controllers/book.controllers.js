@@ -115,13 +115,20 @@ exports.returnBook = async (req, res) => {
     }
 }
 
+exports.getBorrowers = async (req, res) => {
+    const borrowers = await Student.find({ books: { $not: { $size: 0 } } })
+
+    res.status(200).json(borrowers)
+}
+
 exports.getNotifications = async (req, res) => {
-    const notifications = await Notification.find({ student: "67e59ddf48b356e287c97225" })
+    const student = "67ebd6821603e697847fbd1e"
+    const notifications = await Notification.find({ student: student })
 
     for (const notification of notifications) {
-        await Notification.findOneAndUpdate({ student: "67e59ddf48b356e287c97225" }, { $set: { status: "Read" } })
+        await Notification.updateMany({ student: student }, { $set: { status: "Read" } })
     }
-    
+
     res.status(200).json({ notifications })
 }
 
@@ -140,7 +147,7 @@ exports.sendNotification = async (req, res) => {
 
             await Notification.create({
                 student,
-                message: `Please return the books ${bookNames.join(', ')}`
+                books: bookNames
             })
         }
         res.status(200).json({ message: "Notifications sent" })

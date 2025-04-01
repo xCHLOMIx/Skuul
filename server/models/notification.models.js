@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const notificationSchema = new mongoose.Schema({
     student: {
         type: mongoose.Types.ObjectId,
-        ref: 'students',
+        ref: 'student',
         required: true
     },
-    message : {
-        type: String,
+    books : {
+        type: [String],
         required: true
     },
     status : {
