@@ -16,7 +16,7 @@ interface Prop {
 
 const Book : React.FC<Prop> = ({ book }) => {
     return (
-        <div key={book._id} className='bg-white min-h-64 justify-between border border-alt5 p-3 flex flex-col'>
+        <div className='bg-white min-h-64 justify-between border border-alt5 p-3 flex flex-col'>
             <div className='text-end self-end'>
                 <div className={`${book.status == "Available" ? "bg-green-100" : "bg-red-200"} w-max px-2 py-1`}>
                     <span className='text-xs'>{book.status}</span>

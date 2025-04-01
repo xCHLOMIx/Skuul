@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Book from '../../components/universal/Book'
+import { useFetch } from '../../hooks/useFetch'
+import LoadingComponent from '../../components/admin/LoadingComponent'
 
-interface BookInteface {
+interface BookInterface {
     _id: string,
     title: string,
     author: string,
@@ -12,20 +14,8 @@ interface BookInteface {
 }
 
 const AdminBooks: React.FC = () => {
-    const [books, setBooks] = useState<BookInteface[]>([])
-    useEffect(() => {
+    const { data, isLoading }: { data: BookInterface[], isLoading: boolean } = useFetch("http://localhost:4000/books")
 
-        const fetchData = async () => {
-            const response = await fetch('http://localhost:4000/books')
-            const data = await response.json()
-
-            setBooks(data)
-        }
-
-        fetchData()
-    }, [])
-
-    console.log(books)
     return (
         <div>
             <div>
@@ -35,8 +25,13 @@ const AdminBooks: React.FC = () => {
             <div className='mt-5'>
                 <h2 className='font-bold text-2xl text-primary'>All books</h2>
                 <div className='mt-3 grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-3.5'>
-                    {books.map((book) => (
-                        <Book book={book} />
+                    {isLoading &&
+                        Array.from({ length: 5 }).map((_, index) => (
+                            <LoadingComponent key={index} />
+                        ))
+                    }
+                    {data.map((book) => (
+                        <Book book={book} key={book._id} />
                     ))}
                 </div>
             </div>

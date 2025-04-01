@@ -12,7 +12,7 @@ const AdminSidebar: React.FC = () => {
                 </div>
                 {links.map((link) => (
                     <Link key={link.id} to={link.destination}>
-                        <div className={`${link.status == "active" ? "bg-alt" : ""} flex items-center gap-4 cursor-pointer px-4 py-3`}>
+                        <div className={`${link.status == "active" ? "bg-alt" : ""} hover:bg-alt flex items-center gap-4 cursor-pointer px-4 py-3`}>
                             {link.icon}
                             <span className='font-medium text-sm text-white'>{link.text}</span>
                         </div>
