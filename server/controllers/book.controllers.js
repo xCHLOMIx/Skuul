@@ -1,8 +1,9 @@
 const Book = require('../models/book.models')
 const Student = require('../models/student.models')
+const Notification = require('../models/notification.models')
 
 exports.getBooks = async (req, res) => {
-    const books = await Book.find().sort({ title : 1})
+    const books = await Book.find().sort({ title: 1 })
 
     if (books.length <= 0) return res.status(404).json({ message: "No books found" })
 
@@ -64,7 +65,7 @@ exports.borrowBook = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
-// Just to check if Wakatime works
+
 exports.returnBook = async (req, res) => {
     const { returns, student } = req.body
 
@@ -112,4 +113,39 @@ exports.returnBook = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
+}
+
+exports.getNotifications = async (req, res) => {
+    const notifications = await Notification.find({ student: "67e59ddf48b356e287c97225" })
+
+    for (const notification of notifications) {
+        await Notification.findOneAndUpdate({ student: "67e59ddf48b356e287c97225" }, { $set: { status: "Read" } })
+    }
+    
+    res.status(200).json({ notifications })
+}
+
+exports.sendNotification = async (req, res) => {
+    const students = await Student.find({ books: { $not: { $size: 0 } } })
+
+    try {
+        for (const student of students) {
+            const books = student.books
+            const bookNames = []
+
+            for (const book of books) {
+                const theBook = await Book.findOne({ _id: book })
+                bookNames.push(theBook.title)
+            }
+
+            await Notification.create({
+                student,
+                message: `Please return the books ${bookNames.join(', ')}`
+            })
+        }
+        res.status(200).json({ message: "Notifications sent" })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+
 }
