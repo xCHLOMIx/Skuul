@@ -6,15 +6,15 @@ const notificationSchema = new mongoose.Schema({
         ref: 'student',
         required: true
     },
-    books : {
+    books: {
         type: [String],
         required: true
     },
-    status : {
+    status: {
         type: String,
         required: true,
         default: "Unread"
     }
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model('Notification', notificationSchema)

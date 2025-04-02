@@ -6,6 +6,7 @@ const cors = require('cors')
 const PORT = process.env.PORT
 const bookRoutes = require('./routes/book.routes')
 const studentRoutes = require('./routes/student.routes')
+const adminRoutes = require('./routes/admin.routes')
 
 mongoose.connect('mongodb://localhost:27017/Skuul')
     .then(() => {
@@ -25,3 +26,4 @@ app.use((req, res, next) => {
 
 app.use('/books', bookRoutes)
 app.use('/students', studentRoutes)
+app.use('/admin', adminRoutes)
