@@ -58,23 +58,23 @@ studentSchema.statics.signup = async function (firstName, lastName, theClass, em
 }
 
 studentSchema.statics.signIn = async function (email, password) {
-    const exists = await this.findOne({ email: email })
+    const student = await this.findOne({ email: email })
 
     if (!email || !password) {
         throw Error("All fields are required")
     }
 
-    if (!exists) {
+    if (!student) {
         throw Error("No Student with such email!")
     }
 
-    const isAuth = await bcrypt.compare(password, exists.password)
+    const isAuth = await bcrypt.compare(password, student.password)
 
     if (!isAuth) {
         throw Error("Incorrect Password")
     }
 
-    return exists
+    return student
 }
 
 module.exports = mongoose.model('Student', studentSchema)

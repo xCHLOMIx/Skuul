@@ -17,21 +17,22 @@ const adminSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
+//Admin sign up function
 adminSchema.statics.signup = async function (title, email, password) {
     if (!title || !email || !password) throw Error("All fields are required")
-
-    const exists = await this.findOne({ email: email })
-    console.log(exists)
-
-    if (exists) {
-        throw Error("Email already exists")
-    }
 
     const theTitle = await this.findOne({ title: title })
 
     if (theTitle) {
         throw Error(`We already have a ${title}`)
     }
+
+    const exists = await this.findOne({ email: email })
+
+    if (exists) {
+        throw Error("Email already exists")
+    }
+
 
     if (!validator.isEmail(email)) {
         throw Error("Invalid email")
@@ -42,7 +43,26 @@ adminSchema.statics.signup = async function (title, email, password) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-    const admin = this.create({ title, email, password : hashedPassword})
+    const admin = this.create({ title, email, password: hashedPassword })
+
+    return admin
+}
+
+//Admin sign in function
+adminSchema.statics.signin = async function (email, password) {
+    if (!email || !password) throw Error("All fields are required")
+
+    const admin = await this.findOne({ email: email })
+
+    if (!admin) {
+        throw Error("No admin with that email")
+    }
+
+    const isAuth = await bcrypt.compare(password, admin.password)
+
+    if (!isAuth) {
+        throw Error("Incorrect Password")
+    }
 
     return admin
 }
