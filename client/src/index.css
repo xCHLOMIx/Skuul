@@ -9,6 +9,7 @@
   --color-alt3: #6B6B6B;
   --color-alt4: #DEE0ED;
   --color-alt5: #DEDEDE;
+  --color-alt6: #555555;
   --color-customg: #C8FFCA;
   --color-customp: #CFC8FF;
 }
@@ -18,7 +19,7 @@
 }
 
 .animated {
-  animation: pulse 1.5s infinite ease-in-out;
+  animation: pulse 1s infinite ease-in-out;
 }
 
 @keyframes pulse {
