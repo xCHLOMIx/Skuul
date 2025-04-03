@@ -116,10 +116,41 @@ exports.returnBook = async (req, res) => {
 }
 
 exports.getBorrowers = async (req, res) => {
-    const borrowers = await Student.find({ books: { $not: { $size: 0 } } })
+    const borrowers = await Student.aggregate([{
+        $lookup: {
+            from: 'books',
+            localField: 'books',
+            foreignField: '_id',
+            as: 'books'
+        }
+    }])
 
     res.status(200).json(borrowers)
 }
+
+// exports.getBorrowers = async (req, res) => {
+//     const borrowers = await Student.find({ books: { $not: { $size: 0 } } })
+//     const theBorrowers = []
+//     for (const borrower of borrowers) {
+//         let theBooks = []
+//         for (const book of borrower.books) {
+//             const theBook = await Book.findOne({ _id: book })
+//             theBooks.push(theBook.title)
+//         }
+
+//         const theBorrower = {
+//             _id: borrower._id,
+//             firstName: borrower.firstName,
+//             lastName: borrower.lastName,
+//             theClass: borrower.theClass,
+//             books: theBooks
+//         }
+
+//         theBorrowers.push(theBorrower)
+//     }
+
+//     res.status(200).json(theBorrowers)
+// }
 
 exports.getNotifications = async (req, res) => {
     const student = "67ebd6821603e697847fbd1e"
