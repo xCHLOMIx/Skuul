@@ -1,7 +1,7 @@
 import React from 'react'
 import Book from '../../components/universal/Book'
 import { useFetch } from '../../hooks/useFetch'
-import LoadingComponent from '../../components/admin/LoadingComponent'
+import BookLoading from '../../components/admin/BookLoading'
 
 interface BookInterface {
     _id: string,
@@ -27,7 +27,7 @@ const AdminBooks: React.FC = () => {
                 <div className='mt-3 grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-3.5'>
                     {isLoading &&
                         Array.from({ length: 5 }).map((_, index) => (
-                            <LoadingComponent key={index} />
+                            <BookLoading key={index} />
                         ))
                     }
                     {data.map((book) => (

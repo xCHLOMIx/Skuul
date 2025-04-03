@@ -31,7 +31,7 @@ const AdminLogin: React.FC = () => {
                             className='p-3.5 border border-gray-300 outline-0'
                         />
                     </div>
-                    <PrimaryButton styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Log in' />
+                    <PrimaryButton icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Log in' />
                 </form>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from "react"
 
-const LoadingComponent : React.FC = () => {
+const BookLoading : React.FC = () => {
     return (
         <div className='bg-white min-h-64 justify-between border border-alt5 animated p-3 flex flex-col' >
             <div className='text-end self-end flex flex-col items-end'>
@@ -16,4 +16,4 @@ const LoadingComponent : React.FC = () => {
     )
 }
 
-export default LoadingComponent
+export default BookLoading

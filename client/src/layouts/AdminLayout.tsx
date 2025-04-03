@@ -3,6 +3,7 @@ import AdminSidebar from '../components/admin/AdminSidebar'
 import { Route, Routes } from 'react-router-dom'
 import AdminDashboard from '../pages/admin/AdminDashboard'
 import AdminBooks from '../pages/admin/AdminBooks'
+import AdminBorrowers from '../pages/admin/AdminBorrowers'
 
 const AdminLayout: React.FC = () => {
     return (
@@ -17,6 +18,10 @@ const AdminLayout: React.FC = () => {
                     <Route 
                     path='/books'
                     element={<AdminBooks />}
+                    />
+                    <Route 
+                    path='/borrowers'
+                    element={<AdminBorrowers />}
                     />
                 </Routes>
             </div>
