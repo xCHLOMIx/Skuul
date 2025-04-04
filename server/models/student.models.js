@@ -22,9 +22,11 @@ const studentSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    password: {
+    pin: {
         type: String,
-        required: true
+        required: true,
+        minlength: 6,
+        maxlenth: 6
     },
     books: {
         type: [mongoose.Types.ObjectId],
@@ -32,17 +34,13 @@ const studentSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-studentSchema.statics.signup = async function (firstName, lastName, theClass, email, password) {
-    // if (!firstName || !lastName || !theClass || !email || !password) {
-    //     throw Error("All fields are required!")
-    // }
+studentSchema.statics.signup = async function (firstName, lastName, theClass, email, pin) {
+    if (!firstName || !lastName || !theClass || !email || !pin) {
+        throw Error("All fields are required!")
+    }
 
     if (!validator.isEmail(email)) {
         throw Error("Enter a valid email")
-    }
-
-    if (!validator.isStrongPassword(password)) {
-        throw Error("Enter a strong password")
     }
 
     const exist = await this.findOne({ email: email })
@@ -51,16 +49,16 @@ studentSchema.statics.signup = async function (firstName, lastName, theClass, em
         throw Error("The Email already exists")
     }
 
-    const thePassword = await bcrypt.hash(password, 10)
-    const student = await this.create({ firstName, lastName, theClass, email, password: thePassword })
+    const thePin = await bcrypt.hash(pin, 10)
+    const student = await this.create({ firstName, lastName, theClass, email, pin: thePin })
 
     return student
 }
 
-studentSchema.statics.signIn = async function (email, password) {
+studentSchema.statics.signIn = async function (email, pin) {
     const student = await this.findOne({ email: email })
 
-    if (!email || !password) {
+    if (!email || !pin) {
         throw Error("All fields are required")
     }
 
@@ -68,10 +66,10 @@ studentSchema.statics.signIn = async function (email, password) {
         throw Error("No Student with such email!")
     }
 
-    const isAuth = await bcrypt.compare(password, student.password)
+    const isAuth = await bcrypt.compare(pin, student.pin)
 
     if (!isAuth) {
-        throw Error("Incorrect Password")
+        throw Error("Incorrect pin")
     }
 
     return student

@@ -8,10 +8,10 @@ const createToken = async (id) => {
 }
 
 exports.signUp = async (req, res) => {
-    const { firstName, lastName, theClass, email, password } = req.body
+    const { firstName, lastName, theClass, email, pin } = req.body
 
     try {
-        const student = await Student.signup(firstName, lastName, theClass, email, password)
+        const student = await Student.signup(firstName, lastName, theClass, email, pin)
         res.status(200).json({ student })
     } catch (error) {
         res.status(400).json({ error: error.message })
@@ -19,10 +19,10 @@ exports.signUp = async (req, res) => {
 }
 
 exports.signIn = async (req, res) => {
-    const { email, password } = req.body
+    const { email, pin } = req.body
 
     try {
-        const student = await Student.signIn(email, password)
+        const student = await Student.signIn(email, pin)
         const token = await createToken(student._id)
         res.status(200).json({ student: student.firstName, token })
     } catch (error) {
