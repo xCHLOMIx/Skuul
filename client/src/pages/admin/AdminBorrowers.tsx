@@ -3,6 +3,7 @@ import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoBell } from "react-icons/go";
 import { RiBookLine } from "react-icons/ri";
 import { useFetch } from '../../hooks/useFetch';
+import BorrowerLoading from '../../components/admin/BorrowerLoading';
 
 interface BookInterface {
     _id: string,
@@ -42,6 +43,7 @@ const AdminBorrowers: React.FC = () => {
                     <PrimaryButton icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
                 </div>
                 <div className='mt-3 grid grid-cols-1 gap-3.5'>
+                    { isLoading && <BorrowerLoading />}
                     {data && data.map((borrower) => (
                         <div key={borrower._id} className='bg-white border flex flex-col gap-3 border-alt4 p-4'>
                             <div className='flex items-center gap-3'>

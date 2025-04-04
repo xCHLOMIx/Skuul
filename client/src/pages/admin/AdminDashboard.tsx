@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useFetch } from '../../hooks/useFetch'
 
 const AdminDashboard: React.FC = () => {
-  const [books, setBooks] = useState([])
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('http://localhost:4000/books')
-      const data = await response.json()
-
-      setBooks(data)
-    }
-
-    fetchData()
-  }, [])
+  const books = useFetch("http://localhost:4000/books")
 
   return (
     <div>
@@ -28,7 +19,7 @@ const AdminDashboard: React.FC = () => {
               <div className="bg-customg h-8  w-8"></div>
             </div>
             <div className='bg-primary w-20 h-20 flex justify-center items-center'>
-              <span className='text-white text-xl'>{(books.length).toString().padStart(4,"0")}</span>
+              <span className='text-white text-xl'>{(books.data.length).toString().padStart(4, "0")}</span>
             </div>
           </div>
           <div className='bg-white border border-alt4 p-[18px] flex justify-between'>
