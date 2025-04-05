@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import AdminLayout from "./layouts/AdminLayout"
-import AdminLogin from "./pages/admin/AdminLogin"
+import AdminSignin from "./pages/admin/AdminSignin"
+import StudentSignin from "./pages/student/StudentSignin"
 
 function App() {
 
@@ -13,8 +14,12 @@ function App() {
             element={<AdminLayout />}
           />
           <Route
-            path='/admin/login'
-            element={<AdminLogin />}
+            path='/admin/signin'
+            element={<AdminSignin />}
+          />
+          <Route
+            path='/student/signin'
+            element={<StudentSignin />}
           />
         </Routes>
       </BrowserRouter>

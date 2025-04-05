@@ -33,3 +33,7 @@
     opacity: 100%;
   }
 }
+
+.input {
+  @apply p-3.5 border border-gray-300 outline-0 focus:outline-2 focus:outline-primary transition duration-300
+}

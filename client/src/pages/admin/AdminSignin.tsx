@@ -3,7 +3,7 @@ import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
 
-const AdminLogin: React.FC = () => {
+const AdminSignin: React.FC = () => {
     return (
         <div className='h-full w-full flex overflow-hidden'>
             <div className='h-full max-lg:hidden min-w-2/3 flex justify-center items-center bg-primary'>
@@ -31,11 +31,11 @@ const AdminLogin: React.FC = () => {
                             className='p-3.5 border border-gray-300 outline-0'
                         />
                     </div>
-                    <PrimaryButton icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Log in' />
+                    <PrimaryButton handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Log in' />
                 </form>
             </div>
         </div>
     )
 }
 
-export default AdminLogin
+export default AdminSignin
