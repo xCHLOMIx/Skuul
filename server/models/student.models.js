@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
+const classes = ["L3 SOD", "L3 NIT", "L3 MM", "L4 SOD", "L4 NIT", "L4 MM", "L5 SOD", "L5 NIT", "L5 MM"]
 const studentSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -16,6 +17,10 @@ const studentSchema = new mongoose.Schema({
     theClass: {
         type: String,
         required: true,
+        enum: {
+            values: classes,
+            message: `Classes supported are ${classes.join()}`
+        }
     },
     email: {
         type: String,
@@ -25,8 +30,6 @@ const studentSchema = new mongoose.Schema({
     pin: {
         type: String,
         required: true,
-        minlength: 6,
-        maxlenth: 6
     },
     books: {
         type: [mongoose.Types.ObjectId],
@@ -47,6 +50,10 @@ studentSchema.statics.signup = async function (firstName, lastName, theClass, em
 
     if (exist) {
         throw Error("The Email already exists")
+    }
+
+    if (pin.length < 6 || pin.length > 6 ) {
+        throw Error("PIN must be 6 digits")
     }
 
     const thePin = await bcrypt.hash(pin, 10)
