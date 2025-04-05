@@ -14,7 +14,13 @@ exports.signUp = async (req, res) => {
         const student = await Student.signup(firstName, lastName, theClass, email, pin)
         res.status(200).json({ student })
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        const theError = ''
+        if (error.message.includes(':')) {
+            theError += error.message.split(':')[2]
+        }
+        
+        if (theError.length > 1) res.status(400).json({ error: theError })
+            else res.status(400).json({ error: error.message })
     }
 }
 

@@ -2,19 +2,20 @@ import React, { useRef, useState } from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
+import { Link } from 'react-router-dom';
 
 
 const StudentSignin: React.FC = () => {
     const [email, setEmail] = useState('')
     const inputRefs = useRef<HTMLInputElement[]>([])
 
-    
+
     const handleChange = (e: any, index: number) => {
         if (e.target.value.length > 0 && index < inputRefs.current.length - 1) {
             inputRefs.current[index + 1].focus()
         }
     }
-    
+
     const handleKeyDown = (e: any, index: number) => {
         if (e.key === "Backspace") {
             if (e.target.value === '' && index > 0) {
@@ -64,8 +65,11 @@ const StudentSignin: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                    <PrimaryButton handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Log in' />
+                    <PrimaryButton handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Sign in' />
                 </form>
+                <Link to='/student/signup' className='self-end font-bold text-primary cursor-pointer'>
+                    New? Sign up here
+                </Link>
             </div>
         </div>
     )

@@ -37,3 +37,7 @@
 .input {
   @apply p-3.5 border border-gray-300 outline-0 focus:outline-2 focus:outline-primary transition duration-300
 }
+
+.dropdown {
+  @apply shadow-lg h-48 overflow-y-scroll bg-white border border-gray-200 w-full left-0 top-[120%]
+}
