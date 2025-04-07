@@ -13,9 +13,8 @@ const StudentSignup = () => {
     const [theClass, setTheClass] = useState('Select your Class')
     const inputRefs = useRef<HTMLInputElement[]>([])
     const [isClicked, setIsClicked] = useState(false)
-    const pin = inputRefs.current.map((e) => e.value).join('')
     const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [two, setTwo] = useState(false)
     const [one, setOne] = useState(true)
 
@@ -33,6 +32,7 @@ const StudentSignup = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
+        const pin = inputRefs.current.map((e) => e.value).join('')
         const student = { email, firstName, lastName, theClass, pin }
         const postData = async () => {
             const response = await fetch('http://localhost:4000/students/signup', {
@@ -44,6 +44,8 @@ const StudentSignup = () => {
 
             if (!response.ok) {
                 setError(json.error)
+            } else {
+                setError('')
             }
         }
 
@@ -60,7 +62,7 @@ const StudentSignup = () => {
                     <GoShieldLock color='#D55A29' size={32} />
                     <h1 className='text-2xl font-bold'>Student Sign up</h1>
                 </div>
-                {error && <div className='bg-red-100 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
+                {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
                 <form onSubmit={handleSubmit} className='w-full transition duration-300 flex flex-col overflow-hidden items-center h-[372px]  relative'>
                     <section className={`absolute ${two ? "-translate-x-full opacity-0" : ""} ${one ? "left-0" : ""} px-1 w-full transition-all duration-300 flex flex-col gap-4`}>
                         <div className='flex flex-col gap-2.5'>
@@ -80,6 +82,22 @@ const StudentSignup = () => {
                                 className='input'
                                 onChange={(e) => setLastname(e.target.value)}
                             />
+                        </div>
+                        <div className='flex flex-col gap-2.5'>
+                            <label htmlFor="" className='font-light'>Email:</label>
+                            <input
+                                type="email"
+                                placeholder='example@gmail.com'
+                                className='input'
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <PrimaryButton icon='' handleClick={() => { setTwo(true); setOne(false) }} text='Next' isLoading={false} type='button' styles='w-full' />
+                    </section>
+                    <section className={`absolute ${two ? "left-0" : ""} ${one ? "left-full opacity-0" : ""} px-1 transition-all w-full duration-300 flex flex-col gap-4`}>
+                        <div onClick={() => { setTwo(false); setOne(true) }} className='p-2 border-2 border-primary hover:bg-primary flex items-center gap-2 hover:text-white transition duration-300 cursor-pointer w-max'>
+                            <PiCaretCircleLeftLight size={24} />
+                            <span>Back</span>
                         </div>
                         <label htmlFor="" className='font-light'>Class:</label>
                         <div onClick={() => setIsClicked(!isClicked)} className='input relative cursor-pointer'>
@@ -101,24 +119,6 @@ const StudentSignup = () => {
                                 ))}
                             </div>
                         </div>
-                        <PrimaryButton handleClick={() => {setTwo(true); setOne(false)}} icon='' styles='w-full' text='Next' />
-                    </section>
-                    <section className={`absolute ${two ? "left-0" : ""} ${one ? "left-full opacity-0" : ""} px-1 transition-all w-full duration-300 flex flex-col gap-4`}>
-                        <div onClick={() => {setTwo(false); setOne(true)}} className='p-2 border-2 border-primary hover:bg-primary flex items-center gap-2 hover:text-white transition duration-300 cursor-pointer w-max'>
-                            <PiCaretCircleLeftLight size={24} />
-                            <span>Back</span>
-                        </div>
-                        <div className='flex flex-col gap-2.5'>
-                        </div>
-                        <div className='flex flex-col gap-2.5'>
-                            <label htmlFor="" className='font-light'>Email:</label>
-                            <input
-                                type="email"
-                                placeholder='example@gmail.com'
-                                className='input'
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
                         <div className='flex flex-col gap-2.5'>
                             <label htmlFor="" className='font-light'>PIN:</label>
                             <div className='grid grid-cols-6 gap-3'>
@@ -135,7 +135,7 @@ const StudentSignup = () => {
                                 ))}
                             </div>
                         </div>
-                        <button className='bg-primary text-white p-3.5 font-semibold cursor-pointer hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary'>Sign up</button>
+                        <PrimaryButton icon='' handleClick={() => { }} text='Sign up' isLoading={isLoading} type='submit' styles='w-full' />
                     </section>
                 </form>
                 <Link to='/student/signin' className='self-end font-bold text-primary cursor-pointer'>
