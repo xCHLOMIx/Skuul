@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import image from "../../assets/login-bg.svg"
 import { GoShieldLock } from 'react-icons/go'
@@ -13,6 +13,9 @@ const StudentSignup = () => {
     const [theClass, setTheClass] = useState('Select your Class')
     const inputRefs = useRef<HTMLInputElement[]>([])
     const [isClicked, setIsClicked] = useState(false)
+    const pin = inputRefs.current.map((e) => e.value).join('')
+    const [error, setError] = useState('')
+
 
 
     const handleChange = (e: any, index: number) => {
@@ -25,6 +28,23 @@ const StudentSignup = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+
+        const student = { email, firstName, lastName, theClass, pin }
+        const postData = async () => {
+            const response = await fetch('http://localhost:4000/students/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(student)
+            })
+            const json = await response.json()
+
+            if (!response.ok) {
+                setError(json.error)
+            }
+        }
+
+        console.log(pin)
+        postData()
     }
 
     return (
@@ -33,11 +53,14 @@ const StudentSignup = () => {
                 <img src={image} className='w-3/4 opacity-90' alt="" />
             </div>
             <div className='h-full w-full px-12 flex flex-col justify-center gap-4'>
-                <div className='flex items-center gap-3'>
-                    <GoShieldLock color='#D55A29' size={32} />
-                    <h1 className='text-2xl font-bold'>Student Login</h1>
-                </div>
+                {!error &&
+                    <div className='flex items-center gap-3'>
+                        <GoShieldLock color='#D55A29' size={32} />
+                        <h1 className='text-2xl font-bold'>Student Sign up</h1>
+                    </div>
+                }
                 <form onSubmit={handleSubmit} className='w-full flex flex-col gap-4'>
+                    {error && <div className='bg-red-100 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>First name:</label>
                         <input
@@ -50,7 +73,7 @@ const StudentSignup = () => {
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>Last name:</label>
                         <input
-                            type="email"
+                            type="text"
                             placeholder='Doe'
                             className='input'
                             onChange={(e) => setLastname(e.target.value)}
@@ -69,7 +92,7 @@ const StudentSignup = () => {
                             </div>
                             <div className={`absolute ${isClicked ? "block" : "hidden"} dropdown`}>
                                 {classes.map((oneClass) => (
-                                    <div onClick={() => setTheClass(oneClass.name)}
+                                    <div key={oneClass.name} onClick={() => setTheClass(oneClass.name)}
                                         className='p-3  hover:bg-gray-200 cursor-pointer transition duration-200'
                                     >
                                         {oneClass.name}
