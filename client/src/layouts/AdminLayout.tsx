@@ -9,7 +9,7 @@ const AdminLayout: React.FC = () => {
     return (
         <div className='h-full flex'>
             <AdminSidebar />
-            <div className='bg-alt2 w-full p-10'>
+            <div className='bg-alt2 w-full p-10 overflow-y-scroll'>
                 <Routes>
                     <Route 
                     path='/dashboard'

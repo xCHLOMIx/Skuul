@@ -14,6 +14,9 @@ exports.createBook = async (req, res) => {
     const { title, author, quantity } = req.body
 
     try {
+        if (!title || !author || !quantity) {
+            throw Error("All fields are required")
+        }
         const book = await Book.create({ title, author, quantity })
         res.status(200).json({ book })
     } catch (error) {

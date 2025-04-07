@@ -35,6 +35,7 @@ const StudentSignup = () => {
         const pin = inputRefs.current.map((e) => e.value).join('')
         const student = { email, firstName, lastName, theClass, pin }
         const postData = async () => {
+            setIsLoading(true)
             const response = await fetch('http://localhost:4000/students/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -45,6 +46,7 @@ const StudentSignup = () => {
             if (!response.ok) {
                 setError(json.error)
             } else {
+                setIsLoading(false)
                 setError('')
             }
         }

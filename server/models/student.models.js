@@ -39,7 +39,7 @@ const studentSchema = new mongoose.Schema({
 
 studentSchema.statics.signup = async function (firstName, lastName, theClass, email, pin) {
     if (!firstName || !lastName || !theClass || !email || !pin) {
-        throw Error("All fields are required!")
+        throw Error("All fields are required")
     }
 
     if (!validator.isEmail(email)) {
