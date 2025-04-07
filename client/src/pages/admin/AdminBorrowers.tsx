@@ -40,7 +40,7 @@ const AdminBorrowers: React.FC = () => {
             <div className='mt-5'>
                 <div className='flex justify-between'>
                     <h2 className='font-bold text-2xl text-primary'>All borrowers</h2>
-                    <PrimaryButton icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
+                    <PrimaryButton handleClick={() => {}} icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
                 </div>
                 <div className='mt-3 grid grid-cols-1 gap-3.5'>
                     { isLoading && <BorrowerLoading />}
