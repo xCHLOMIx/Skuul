@@ -126,7 +126,7 @@ exports.getBorrowers = async (req, res) => {
             foreignField: '_id',
             as: 'books'
         }
-    }])
+    }]).match({ books: { $not: { $size: 0 } } })
 
     res.status(200).json(borrowers)
 }
