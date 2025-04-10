@@ -4,7 +4,7 @@ import image from "../../assets/login-bg.svg"
 import { GoShieldLock } from 'react-icons/go'
 import { classes } from '../../data/classes'
 import { PiCaretCircleLeftLight, PiCaretDownBold } from "react-icons/pi";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useAlertContext from '../../hooks/useAlertContext'
 
 const StudentSignup = () => {
@@ -18,7 +18,8 @@ const StudentSignup = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [two, setTwo] = useState(false)
     const [one, setOne] = useState(true)
-    const { state, dispatch } = useAlertContext()
+    const { dispatch } = useAlertContext()
+    const navigator = useNavigate()
 
 
     const handleChange = (e: any, index: number) => {
@@ -29,12 +30,11 @@ const StudentSignup = () => {
         if (e.key === "Backspace" && e.target.value === '' && index > 0) inputRefs.current[index - 1].focus()
     }
 
-    console.log(two)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
         const pin = inputRefs.current.map((e) => e.value).join('')
-        const student = { email, firstName, lastName, theClass, pin }
+        const student = { email, firstName: firstName.toUpperCase(), lastName, theClass, pin }
         const postData = async () => {
             setIsLoading(true)
             const response = await fetch('http://localhost:4000/students/signup', {
@@ -51,10 +51,11 @@ const StudentSignup = () => {
             } else {
                 setIsLoading(false)
                 setError('')
+                navigator('/student/signin')
                 dispatch({ type: 'SET_ALERT', payload: 'Successfully signed up!' })
                 const timer = setTimeout(() => {
                     dispatch({ type: 'REMOVE_ALERT' })
-                }, 5000)
+                }, 3000)
 
                 return () => clearTimeout(timer)
             }
