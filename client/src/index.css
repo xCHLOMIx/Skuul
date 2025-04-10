@@ -26,9 +26,11 @@
   0% {
     opacity: 100%;
   }
+
   50% {
     opacity: 0%;
   }
+
   100% {
     opacity: 100%;
   }
@@ -40,4 +42,8 @@
 
 .dropdown {
   @apply shadow-lg h-48 overflow-y-scroll bg-white border border-gray-200 w-full left-0 top-[120%]
+}
+
+.bar::-webkit-scrollbar {
+  display: none;
 }

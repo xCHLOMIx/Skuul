@@ -1,37 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import AdminLayout from "./layouts/AdminLayout"
-import AdminSignin from "./pages/admin/AdminSignin"
-import StudentSignin from "./pages/student/StudentSignin"
-import StudentSignup from "./pages/student/StudentSignup"
-import { AlertContextProvider } from "./context/AlertContext"
+import AppLayout from "./layouts/AppLayout"
 
 function App() {
-
   return (
-    <div className="h-screen">
-      <AlertContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/admin/*"
-              element={<AdminLayout />}
-            />
-            <Route
-              path='/admin/signin'
-              element={<AdminSignin />}
-            />
-            <Route
-              path='/student/signin'
-              element={<StudentSignin />}
-            />
-            <Route
-              path='/student/signup'
-              element={<StudentSignup />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </AlertContextProvider>
-    </div>
+   <AppLayout />
   )
 }
 
