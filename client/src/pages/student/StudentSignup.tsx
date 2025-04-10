@@ -5,6 +5,7 @@ import { GoShieldLock } from 'react-icons/go'
 import { classes } from '../../data/classes'
 import { PiCaretCircleLeftLight, PiCaretDownBold } from "react-icons/pi";
 import { Link } from 'react-router-dom'
+import useAlertContext from '../../hooks/useAlertContext'
 
 const StudentSignup = () => {
     const [email, setEmail] = useState('')
@@ -17,7 +18,7 @@ const StudentSignup = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [two, setTwo] = useState(false)
     const [one, setOne] = useState(true)
-
+    const { state, dispatch } = useAlertContext()
 
 
     const handleChange = (e: any, index: number) => {
@@ -45,9 +46,17 @@ const StudentSignup = () => {
 
             if (!response.ok) {
                 setError(json.error)
+                setIsLoading(false)
+
             } else {
                 setIsLoading(false)
                 setError('')
+                dispatch({ type: 'SET_ALERT', payload: 'Successfully signed up!' })
+                const timer = setTimeout(() => {
+                    dispatch({ type: 'REMOVE_ALERT' })
+                }, 5000)
+
+                return () => clearTimeout(timer)
             }
         }
 

@@ -3,37 +3,35 @@ import AdminLayout from "../layouts/AdminLayout"
 import AdminSignin from "../pages/admin/AdminSignin"
 import StudentSignin from "../pages/student/StudentSignin"
 import StudentSignup from "../pages/student/StudentSignup"
-import { AlertContextProvider } from "../context/AlertContext"
+import useAlertContext from "../hooks/useAlertContext"
 
 function AppLayout() {
-    const text = "Sign up successful!"
+    const { state } = useAlertContext()
     return (
         <div className="h-screen">
-            <div className={`${text ? "translate-y-0" : "-translate-y-10"} transition duration-200 bg-green-100 absolute w-full p-2 text-sm text-center font-bold text-green-500`}>
-                <h4>{text}</h4>
+            <div className={`${state.alert ? "top-0" : "-top-10"} transition-all duration-500 ease-in-out border border-green-200 bg-green-100 z-50 absolute w-full h-10 flex items-center justify-center text-sm text-center font-bold text-green-500`}>
+                <h4>{state.alert}</h4>
             </div>
-            <AlertContextProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route
-                            path="/admin/*"
-                            element={<AdminLayout />}
-                        />
-                        <Route
-                            path='/admin/signin'
-                            element={<AdminSignin />}
-                        />
-                        <Route
-                            path='/student/signin'
-                            element={<StudentSignin />}
-                        />
-                        <Route
-                            path='/student/signup'
-                            element={<StudentSignup />}
-                        />
-                    </Routes>
-                </BrowserRouter>
-            </AlertContextProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/admin/*"
+                        element={<AdminLayout />}
+                    />
+                    <Route
+                        path='/admin/signin'
+                        element={<AdminSignin />}
+                    />
+                    <Route
+                        path='/student/signin'
+                        element={<StudentSignin />}
+                    />
+                    <Route
+                        path='/student/signup'
+                        element={<StudentSignup />}
+                    />
+                </Routes>
+            </BrowserRouter>
         </div>
     )
 }

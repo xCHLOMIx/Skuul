@@ -1,8 +1,11 @@
+import { AlertContextProvider } from "./context/AlertContext"
 import AppLayout from "./layouts/AppLayout"
 
 function App() {
   return (
-   <AppLayout />
+    <AlertContextProvider>
+      <AppLayout />
+    </AlertContextProvider>
   )
 }
 
