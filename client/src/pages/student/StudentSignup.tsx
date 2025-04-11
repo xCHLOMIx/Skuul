@@ -76,7 +76,7 @@ const StudentSignup = () => {
                 </div>
                 {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
                 <form onSubmit={handleSubmit} className='w-full transition duration-300 flex flex-col overflow-hidden items-center h-[372px]  relative'>
-                    <section className={`absolute ${two ? "-translate-x-full opacity-0" : ""} ${one ? "left-0" : ""} px-1 w-full transition-all duration-300 flex flex-col gap-4`}>
+                    <section className={`absolute ${two ? "-translate-x-full" : ""} ${one ? "left-0" : ""} px-1 w-full transition-all duration-300 flex flex-col gap-4`}>
                         <div className='flex flex-col gap-2.5'>
                             <label htmlFor="" className='font-light'>First name:</label>
                             <input
@@ -106,10 +106,10 @@ const StudentSignup = () => {
                         </div>
                         <PrimaryButton icon='' handleClick={() => { setTwo(true); setOne(false) }} text='Next' isLoading={false} type='button' styles='w-full' />
                     </section>
-                    <section className={`absolute ${two ? "left-0" : ""} ${one ? "left-full opacity-0" : ""} px-1 transition-all w-full duration-300 flex flex-col gap-4`}>
+                    <section className={`absolute ${two ? "left-0" : ""} ${one ? "left-full" : ""} px-1 transition-all w-full duration-300 flex flex-col gap-4`}>
                         <div onClick={() => { setTwo(false); setOne(true) }} className='p-2 border-2 border-primary hover:bg-primary flex items-center gap-2 hover:text-white transition duration-300 cursor-pointer w-max'>
-                            <PiCaretCircleLeftLight size={24} />
-                            <span>Back</span>
+                            <PiCaretCircleLeftLight size={18} />
+                            <span className='text-sm'>Back</span>
                         </div>
                         <label htmlFor="" className='font-light'>Class:</label>
                         <div onClick={() => setIsClicked(!isClicked)} className='input relative cursor-pointer'>

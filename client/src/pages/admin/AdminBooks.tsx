@@ -33,9 +33,7 @@ const AdminBooks: React.FC = () => {
                         <h2 className='font-bold text-2xl text-primary'>All books</h2>
                         <button onClick={() => setForm(!form)} className='bg-primary p-3 border-2 flex items-center gap-3 transition duration-200 border-primary hover:text-primary hover:bg-white cursor-pointer text-white hover:border-primary'>
                             <IoAdd size={24} className={`${form ? "rotate-45" : ""} transition-all duration-300`} />
-                            {!form &&
-                                <span>Add book</span>
-                            }
+                            <span>{form ? "Close" : "Add book"}</span>
                         </button>
                     </div>
                     {form && <BookForm />}

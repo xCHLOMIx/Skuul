@@ -65,7 +65,7 @@ const StudentSignin: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                    <PrimaryButton handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Sign in' />
+                    <PrimaryButton type='submit' isLoading={false} handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Sign in' />
                 </form>
                 <Link to='/student/signup' className='self-end font-bold text-primary cursor-pointer'>
                     New? Sign up here

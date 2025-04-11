@@ -47,3 +47,13 @@
 .bar::-webkit-scrollbar {
   display: none;
 }
+
+input:-webkit-autofill {
+  animation-name: onAutoFillStart;
+  animation-duration: 0.01s;
+}
+
+@keyframes onAutoFillStart {
+  from {}
+  to {}
+}

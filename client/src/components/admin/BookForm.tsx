@@ -3,7 +3,6 @@ import PrimaryButton from "../universal/PrimaryButton"
 import { LuSave } from "react-icons/lu"
 
 export const BookForm = () => {
-
     const [loading, setLoading] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
     const [author, setAuthor] = useState<string>('')
@@ -40,15 +39,30 @@ export const BookForm = () => {
             <form className='w-full flex flex-col gap-2.5' onSubmit={(e) => handleSubmit(e)}>
                 <div className='flex flex-col gap-2.5 w-full'>
                     <label htmlFor="" className='font-light'>Book title:</label>
-                    <input type="text" className='input w-full' placeholder='Rich Dad Poor Dad' onChange={(e) => setTitle(e.target.value)} />
-                </div>
-                <div className='flex flex-col gap-2.5 w-full'>
-                    <label htmlFor="" className='font-light'>Book title:</label>
-                    <input type="text" className='input w-full' placeholder='Rich Dad Poor Dad' onChange={(e) => setAuthor(e.target.value)} />
+                    <input
+                        type="text"
+                        className='input w-full'
+                        placeholder='Rich Dad Poor Dad'
+                        onChange={(e) => setTitle(e.target.value)}
+                        value={title}
+                    />
                 </div>
                 <div className='flex flex-col gap-2.5 w-full'>
                     <label htmlFor="" className='font-light'>Book author:</label>
-                    <input type="text" className='input w-full' placeholder='Robert Kiyosaki' onChange={(e) => setQuantity(parseInt(e.target.value))} />
+                    <input type="text"
+                        className='input w-full'
+                        placeholder='Robert Kiyosaki'
+                        onChange={(e) => setAuthor(e.target.value)}
+                        value={author}
+                    />
+                </div>
+                <div className='flex flex-col gap-2.5 w-full'>
+                    <label htmlFor="" className='font-light'>Book quantity:</label>
+                    <input type="text"
+                        className='input w-full'
+                        placeholder='1'
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    />
                 </div>
                 <PrimaryButton text='Save' styles='mt-2 w-max px-10' handleClick={() => { }} type='submit' icon={<LuSave size={22} />} isLoading={loading} />
             </form>
