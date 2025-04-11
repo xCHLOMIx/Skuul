@@ -18,7 +18,7 @@ interface BookInterface {
 }
 
 const AdminBooks: React.FC = () => {
-    const { data, isLoading }: { data: BookInterface[], isLoading: boolean } = useFetch("http://localhost:4000/books")
+    const { data, isLoading }: { data: BookInterface[], isLoading: boolean } = useFetch("/api/books")
     const [form, setForm] = useState<boolean>(false)
 
     return (

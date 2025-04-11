@@ -24,6 +24,6 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/books', bookRoutes)
-app.use('/students', studentRoutes)
-app.use('/admin', adminRoutes)
+app.use('/api/books', bookRoutes)
+app.use('/api/students', studentRoutes)
+app.use('/api/admin', adminRoutes)

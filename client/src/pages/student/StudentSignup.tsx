@@ -37,7 +37,7 @@ const StudentSignup = () => {
         const student = { email, firstName: firstName.toUpperCase(), lastName, theClass, pin }
         const postData = async () => {
             setIsLoading(true)
-            const response = await fetch('http://localhost:4000/students/signup', {
+            const response = await fetch('/api/students/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(student)
@@ -76,7 +76,7 @@ const StudentSignup = () => {
                 </div>
                 {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
                 <form onSubmit={handleSubmit} className='w-full transition duration-300 flex flex-col overflow-hidden items-center h-[372px]  relative'>
-                    <section className={`absolute ${two ? "-translate-x-fulln" : ""} ${one ? "left-0" : ""} px-1 w-full transition-all duration-300 flex flex-col gap-4`}>
+                    <section className={`absolute ${two ? "-translate-x-full" : ""} ${one ? "left-0" : ""} px-1 w-full transition-all duration-300 flex flex-col gap-4`}>
                         <div className='flex flex-col gap-2.5'>
                             <label htmlFor="" className='font-light'>First name:</label>
                             <input

@@ -28,7 +28,7 @@ interface Borrower {
 }
 
 const AdminBorrowers: React.FC = () => {
-    const { data, isLoading }: { data: Borrower[], isLoading: boolean } = useFetch('http://localhost:4000/books/borrowers')
+    const { data, isLoading }: { data: Borrower[], isLoading: boolean } = useFetch('/api/books/borrowers')
 
     console.log(data)
     return (
