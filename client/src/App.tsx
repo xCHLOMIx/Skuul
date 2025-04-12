@@ -1,4 +1,4 @@
-import { AlertContextProvider } from "./context/AlertContext"
+import { AlertContextProvider } from "./context/universal/AlertContext"
 import AppLayout from "./layouts/AppLayout"
 
 function App() {

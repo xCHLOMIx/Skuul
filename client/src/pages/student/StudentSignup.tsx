@@ -63,7 +63,8 @@ const StudentSignup = () => {
 
         postData()
     }
-
+    console.log(`One ${one}`)
+    console.log(`Two ${two}`)
     return (
         <div className='h-full w-full flex overflow-hidden'>
             <div className='h-full max-lg:hidden min-w-2/3 flex justify-center items-center bg-primary'>
@@ -141,7 +142,11 @@ const StudentSignup = () => {
                                         type="text"
                                         maxLength={1}
                                         className='input text-center'
-                                        onChange={(e) => handleChange(e, index)}
+                                        onChange={(e) => {
+                                            setOne(false)
+                                            setTwo(true)
+                                            handleChange(e, index)
+                                        }}
                                         onKeyDown={(e) => handleKeyDown(e, index)}
                                     />
                                 ))}
