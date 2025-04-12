@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Book from '../../components/universal/Book'
 import { useFetch } from '../../hooks/useFetch'
 import BookLoading from '../../components/admin/BookLoading'
@@ -6,6 +6,7 @@ import PrimaryButton from '../../components/universal/PrimaryButton'
 import { IoAdd } from 'react-icons/io5'
 import { LuSave } from 'react-icons/lu'
 import { BookForm } from '../../components/admin/BookForm'
+import { useBookContext } from '../../hooks/useBookContext'
 
 interface BookInterface {
     _id: string,
@@ -19,6 +20,13 @@ interface BookInterface {
 
 const AdminBooks: React.FC = () => {
     const { data, isLoading }: { data: BookInterface[], isLoading: boolean } = useFetch("/api/books")
+    const { state, dispatch } = useBookContext()
+
+    useEffect(() => {
+        if (!isLoading && data) {
+            dispatch({ type: 'SET_BOOKS', payload: data })
+        }
+    }, [data, isLoading, dispatch])
     const [form, setForm] = useState<boolean>(false)
 
     return (

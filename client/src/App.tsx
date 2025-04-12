@@ -1,11 +1,14 @@
 import { AlertContextProvider } from "./context/universal/AlertContext"
+import { BookContextProvider } from "./context/universal/BookContext"
 import AppLayout from "./layouts/AppLayout"
 
 function App() {
   return (
-    <AlertContextProvider>
-      <AppLayout />
-    </AlertContextProvider>
+    <BookContextProvider>
+      <AlertContextProvider>
+        <AppLayout />
+      </AlertContextProvider>
+    </BookContextProvider>
   )
 }
 
