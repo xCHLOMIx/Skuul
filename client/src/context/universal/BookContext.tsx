@@ -21,6 +21,8 @@ const bookReducer = (state: { books: Book[] }, action: any) => {
     switch (action) {
         case 'SET_BOOKS':
             return { books: action.payload }
+        case 'ADD_BOOK':
+            return { books: [action.payload, ...state.books] }
         default:
             return state
     }
