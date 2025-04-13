@@ -18,7 +18,7 @@ interface BookContextType {
 export const BookContext = createContext<BookContextType | undefined>(undefined)
 
 const bookReducer = (state: { books: Book[] }, action: any) => {
-    switch (action) {
+    switch (action.type) {
         case 'SET_BOOKS':
             return { books: action.payload }
         case 'ADD_BOOK':

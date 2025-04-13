@@ -50,7 +50,7 @@ const AdminBooks: React.FC = () => {
                             <BookLoading key={index} />
                         ))
                     }
-                    {data.map((book) => (
+                    {state.books.map((book) => (
                         <Book book={book} key={book._id} />
                     ))}
                 </div>

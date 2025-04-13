@@ -2,18 +2,19 @@ import { useState } from "react"
 import PrimaryButton from "../universal/PrimaryButton"
 import { LuSave } from "react-icons/lu"
 import useAlertContext from "../../hooks/useAlertContext"
+import { useBookContext } from "../../hooks/useBookContext"
 
 export const BookForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
     const [author, setAuthor] = useState<string>('')
-    const [quantity, setQuantity] = useState<number>(1)
+    const [quantity, setQuantity] = useState<number | null>(null)
     const [error, setError] = useState<string>('')
-    const { dispatch } = useAlertContext()
+    const { dispatch: alert } = useAlertContext()
+    const { state, dispatch } = useBookContext()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        console.log("YES")
         const book = { title, author, quantity }
         setLoading(true)
 
@@ -24,6 +25,7 @@ export const BookForm = () => {
                 body: JSON.stringify(book)
             })
             const json = await response.json()
+            console.log(json)
             if (!response.ok) {
                 setLoading(false)
                 setError(json.error)
@@ -31,13 +33,14 @@ export const BookForm = () => {
             if (response.ok) {
                 setLoading(false)
                 setError('')
-                dispatch({ type: 'SET_ALERT', payload: 'Book successfuly saved' })
+                dispatch({ type: 'ADD_BOOK', payload: json })
+                alert({ type: 'SET_ALERT', payload: 'Book successfuly saved' })
                 const timer = setTimeout(() => {
-                    dispatch({ type: 'REMOVE_ALERT', payload: 'Book successfuly saved' })
+                    alert({ type: 'REMOVE_ALERT' })
                 }, 3000)
                 setTitle('')
                 setAuthor('')
-                setQuantity(1)
+                setQuantity(null)
                 return () => clearTimeout(timer)
             }
         }

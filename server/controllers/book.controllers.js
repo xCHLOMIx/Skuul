@@ -18,7 +18,7 @@ exports.createBook = async (req, res) => {
             throw Error("All fields are required")
         }
         const book = await Book.create({ title, author, quantity })
-        res.status(200).json({ book })
+        res.status(200).json(book)
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
