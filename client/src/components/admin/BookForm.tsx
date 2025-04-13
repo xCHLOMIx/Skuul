@@ -1,6 +1,7 @@
 import { useState } from "react"
 import PrimaryButton from "../universal/PrimaryButton"
 import { LuSave } from "react-icons/lu"
+import useAlertContext from "../../hooks/useAlertContext"
 
 export const BookForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -8,6 +9,7 @@ export const BookForm = () => {
     const [author, setAuthor] = useState<string>('')
     const [quantity, setQuantity] = useState<number>(1)
     const [error, setError] = useState<string>('')
+    const { dispatch } = useAlertContext()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -16,7 +18,7 @@ export const BookForm = () => {
         setLoading(true)
 
         const postData = async () => {
-            const response = await fetch('http://localhost:4000/books/add-book', {
+            const response = await fetch('/api/books/add', {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(book)
@@ -29,6 +31,14 @@ export const BookForm = () => {
             if (response.ok) {
                 setLoading(false)
                 setError('')
+                dispatch({ type: 'SET_ALERT', payload: 'Book successfuly saved' })
+                const timer = setTimeout(() => {
+                    dispatch({ type: 'REMOVE_ALERT', payload: 'Book successfuly saved' })
+                }, 3000)
+                setTitle('')
+                setAuthor('')
+                setQuantity(1)
+                return () => clearTimeout(timer)
             }
         }
         postData()
