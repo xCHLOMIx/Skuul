@@ -53,7 +53,6 @@ exports.borrowBook = async (req, res) => {
                     }
                 )
                 borrowed.push(theBook._id)
-                console.log(borrowed)
             } else {
                 throw Error(`${theBook.title} is not available`)
             }

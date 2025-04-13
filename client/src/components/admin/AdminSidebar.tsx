@@ -20,7 +20,7 @@ const AdminSidebar: React.FC = () => {
                 ))}
             </div>
             <div>
-                <div className='flex items-center gap-4 hover:bg-alt cursor-pointer px-4 py-3 justify-between'>
+                <div className='flex items-center gap-4 hover:bg-alt cursor-pointer px-4 py-4 justify-between'>
                     <div className='flex items-center gap-4'>
                         <div className='bg-primary px-2 py-0.5  outline-2 outline-white'>
                             <span className='font-bold text-white'>C</span>

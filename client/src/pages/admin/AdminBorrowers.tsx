@@ -40,15 +40,17 @@ const AdminBorrowers: React.FC = () => {
             <div className='mt-5'>
                 <div className='flex justify-between'>
                     <h2 className='font-bold text-2xl text-primary'>All borrowers</h2>
-                    <PrimaryButton type='button' isLoading={false} handleClick={() => {}} icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
+                    <PrimaryButton type='button' isLoading={false} handleClick={() => { }} icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
                 </div>
                 <div className='mt-3 grid grid-cols-1 gap-3.5'>
-                    { isLoading && <BorrowerLoading />}
+                    {isLoading && <BorrowerLoading />}
                     {data && data.map((borrower) => (
                         <div key={borrower._id} className='bg-white border flex flex-col gap-3 border-alt4 p-4'>
                             <div className='flex items-center gap-3'>
                                 <h2 className='font-semibold text-xl'>{borrower.firstName} {borrower.lastName}</h2>
-                                <div className='p-2 py-1.5 flex items-center rounded-xl bg-customg w-max'><span className='font-semibold text-xs'>{borrower.theClass}</span></div>
+                                <div className={`p-2 py-1.5 flex items-center rounded-xl ${borrower.theClass.includes('5') ? "bg-customy w-max" : "" } ${borrower.theClass.includes('4') ? "bg-customg w-max" : "" } ${borrower.theClass.includes('3') ? "bg-customp w-max" : "" }`}>
+                                    <span className='font-semibold text-xs'>{borrower.theClass}</span>
+                                </div>
                             </div>
                             {borrower.books.map((book) => (
                                 <div key={book._id} className='ml-5 flex flex-col gap-2.5'>
