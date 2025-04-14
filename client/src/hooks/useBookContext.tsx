@@ -5,7 +5,7 @@ export const useBookContext = () => {
     const context = useContext(BookContext)
 
     if (!context) {
-        throw Error("useAlertContext must be used inside the AlertContextProvider")
+        throw Error("useBookContext must be used inside the BookContextProvider")
     }
 
     return context
