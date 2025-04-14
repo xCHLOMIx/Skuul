@@ -4,6 +4,7 @@ import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
 
 const AdminSignin: React.FC = () => {
+    const [email, setEmail]
     return (
         <div className='h-full w-full flex overflow-hidden'>
             <div className='h-full max-lg:hidden min-w-2/3 flex justify-center items-center bg-primary'>

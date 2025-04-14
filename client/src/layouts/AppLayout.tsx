@@ -3,7 +3,7 @@ import AdminLayout from "../layouts/AdminLayout"
 import AdminSignin from "../pages/admin/AdminSignin"
 import StudentSignin from "../pages/student/StudentSignin"
 import StudentSignup from "../pages/student/StudentSignup"
-import useAlertContext from "../hooks/useAlertContext"
+import { useAlertContext } from "../hooks/useAlertContext"
 
 function AppLayout() {
     const { state } = useAlertContext()

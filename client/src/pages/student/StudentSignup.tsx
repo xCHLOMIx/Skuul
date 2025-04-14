@@ -5,7 +5,7 @@ import { GoShieldLock } from 'react-icons/go'
 import { classes } from '../../data/classes'
 import { PiCaretCircleLeftLight, PiCaretDownBold } from "react-icons/pi";
 import { Link, useNavigate } from 'react-router-dom'
-import useAlertContext from '../../hooks/useAlertContext'
+import { useAlertContext } from '../../hooks/useAlertContext'
 
 const StudentSignup = () => {
     const [email, setEmail] = useState('')
