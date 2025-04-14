@@ -30,8 +30,8 @@ const AdminBooks: React.FC = () => {
     return (
         <div>
             <div>
-                <h1 className='text-3xl font-bold text-primary'>Dashboard</h1>
-                <span className='text-sm text-alt3'>Welcome back, Chlomi</span>
+                <h1 className='text-3xl font-bold text-primary'>Books</h1>
+                <span className='text-sm text-alt3'>All books</span>
             </div>
             <div className='mt-5'>
                 <div className='flex flex-col justify-between'>

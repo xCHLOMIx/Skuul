@@ -138,7 +138,7 @@ exports.getBorrowers = async (req, res) => {
 }
 
 exports.getReaders = async (req, res) => {
-    const readers = await Student.find({ booksDone: { $gt: 0 } }).sort({ booksDone: -1 })
+    const readers = await Student.find({ booksDone: { $gt: 0 } }).sort({ booksDone: -1, firstName: 1 })
 
     res.status(200).json(readers)
 }
