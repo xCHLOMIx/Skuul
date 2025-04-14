@@ -34,6 +34,10 @@ const studentSchema = new mongoose.Schema({
     books: {
         type: [mongoose.Types.ObjectId],
         ref: 'book'
+    },
+    booksDone: {
+        type: Number,
+        default: 0
     }
 }, { timestamps: true })
 

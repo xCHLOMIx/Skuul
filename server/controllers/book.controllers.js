@@ -69,11 +69,12 @@ exports.borrowBook = async (req, res) => {
 }
 
 exports.returnBook = async (req, res) => {
-    const { returns, student } = req.body
+    const { returns, student, summary } = req.body
 
     try {
         const theStudent = await Student.findOne({ _id: student })
         let books = theStudent.books
+        let read = theStudent.booksDone
 
         const returned = []
         for (const book of returns) {
@@ -84,6 +85,11 @@ exports.returnBook = async (req, res) => {
                 throw Error(`You did not borrow ${theBook.title}`)
             }
 
+            if (summary) {
+                console.log("Yes")
+                read += 1
+            }
+
             quantity = theBook.quantity += 1
 
             await Book.findOneAndUpdate(
@@ -91,22 +97,23 @@ exports.returnBook = async (req, res) => {
                 {
                     $set: {
                         status: "Available",
-                        quantity: quantity
+                        quantity: quantity,
                     }
                 }
             )
-
+            
             returned.push(theBook._id)
         }
-
+        
         books = books.filter((book) => !returns.includes(String(book)))
         console.log(books)
-
+        
         await Student.findOneAndUpdate(
             { _id: student },
             {
                 $set: {
-                    books: books
+                    books: books,
+                    booksDone: read
                 }
             }
         )
