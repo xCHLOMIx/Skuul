@@ -1,10 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
+import { useAlertContext } from '../../hooks/useAlertContext';
 
 const AdminSignin: React.FC = () => {
-    const [email, setEmail]
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
+    const { dispatch } = useAlertContext()
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        const fetchData = async () => {
+            setIsLoading(true)
+            setError('')
+            const admin = { email, password }
+            const response = await fetch("/api/admin/signin", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(admin)
+            })
+            const json = await response.json()
+
+            if (!response.ok) {
+                setIsLoading(false)
+                setError(json.error)
+            }
+
+            if (response.ok) {
+                setIsLoading(false)
+                setError('')
+                dispatch({ type: 'SET_ALERT', payload: 'Successfully signed in' })
+                const timer = setTimeout(() => {
+                    dispatch({ type: 'REMOVE_ALERT', payload: 'Successfully signed in' })
+                }, 3000)
+
+                return () => clearTimeout(timer)
+            }
+        }
+
+        fetchData()
+    }
     return (
         <div className='h-full w-full flex overflow-hidden'>
             <div className='h-full max-lg:hidden min-w-2/3 flex justify-center items-center bg-primary'>
@@ -15,13 +53,16 @@ const AdminSignin: React.FC = () => {
                     <GoShieldLock color='#D55A29' size={32} />
                     <h1 className='text-2xl font-bold'>Admin Login</h1>
                 </div>
-                <form className='w-full flex flex-col gap-4'>
+                email: {email} password {password}
+                {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
+                <form className='w-full flex flex-col gap-4' onSubmit={(e) => handleSubmit(e)}>
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>Email:</label>
                         <input
                             type="email"
                             placeholder='example@gmail.com'
                             className='p-3.5 border border-gray-300 outline-0'
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className='flex flex-col gap-2.5'>
@@ -30,9 +71,10 @@ const AdminSignin: React.FC = () => {
                             type="password"
                             placeholder='•••••••••'
                             className='p-3.5 border border-gray-300 outline-0'
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <PrimaryButton handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Log in' />
+                    <PrimaryButton type='submit' isLoading={isLoading} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Log in' />
                 </form>
             </div>
         </div>

@@ -11,7 +11,7 @@ export const BookForm = () => {
     const [quantity, setQuantity] = useState<number | null>(null)
     const [error, setError] = useState<string>('')
     const { dispatch: alert } = useAlertContext()
-    const { state, dispatch } = useBookContext()
+    const { dispatch } = useBookContext()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()

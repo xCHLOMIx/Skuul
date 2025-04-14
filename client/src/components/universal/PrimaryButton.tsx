@@ -5,7 +5,7 @@ interface Prop {
   icon: any,
   text: string,
   styles: string
-  handleClick: () => void;
+  handleClick?: () => void;
   isLoading: boolean
   type: "submit" | "reset" | "button" | undefined
 }
