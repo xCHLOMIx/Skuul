@@ -101,13 +101,13 @@ exports.returnBook = async (req, res) => {
                     }
                 }
             )
-            
+
             returned.push(theBook._id)
         }
-        
+
         books = books.filter((book) => !returns.includes(String(book)))
         console.log(books)
-        
+
         await Student.findOneAndUpdate(
             { _id: student },
             {
@@ -135,6 +135,12 @@ exports.getBorrowers = async (req, res) => {
     }]).match({ books: { $not: { $size: 0 } } })
 
     res.status(200).json(borrowers)
+}
+
+exports.getReaders = async (req, res) => {
+    const readers = await Student.find({ booksDone: { $gt: 0 } }).sort({ booksDone: -1 })
+
+    res.status(200).json(readers)
 }
 
 // exports.getBorrowers = async (req, res) => {

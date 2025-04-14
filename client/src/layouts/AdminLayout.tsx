@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import AdminDashboard from '../pages/admin/AdminDashboard'
 import AdminBooks from '../pages/admin/AdminBooks'
 import AdminBorrowers from '../pages/admin/AdminBorrowers'
+import AdminLeaderboard from '../pages/admin/AdminLeaderboard'
 
 const AdminLayout: React.FC = () => {
     return (
@@ -23,6 +24,10 @@ const AdminLayout: React.FC = () => {
                         <Route
                             path='/borrowers'
                             element={<AdminBorrowers />}
+                        />
+                        <Route
+                            path='/leaderboard'
+                            element={<AdminLeaderboard />}
                         />
                     </Routes>
                 </div>
