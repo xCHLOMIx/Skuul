@@ -1,8 +1,8 @@
 import React from 'react'
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch } from '../../hooks/universal/useFetch'
 
 const AdminDashboard: React.FC = () => {
-  const books = useFetch("http://localhost:4000/books")
+  const books = useFetch("/api/books")
 
   return (
     <div>

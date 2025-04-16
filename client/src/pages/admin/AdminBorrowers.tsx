@@ -2,7 +2,7 @@ import React from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoBell } from "react-icons/go";
 import { RiBookLine } from "react-icons/ri";
-import { useFetch } from '../../hooks/useFetch';
+import { useFetch } from '../../hooks/universal/useFetch';
 import BorrowerLoading from '../../components/admin/BorrowerLoading';
 
 interface BookInterface {
@@ -48,7 +48,7 @@ const AdminBorrowers: React.FC = () => {
                         <div key={borrower._id} className='bg-white border flex flex-col gap-3 border-alt4 p-4'>
                             <div className='flex items-center gap-3'>
                                 <h2 className='font-semibold text-xl'>{borrower.firstName} {borrower.lastName}</h2>
-                                <div className={`p-2 py-1.5 flex items-center rounded-xl ${borrower.theClass.includes('5') ? "bg-customy w-max" : "" } ${borrower.theClass.includes('4') ? "bg-customg w-max" : "" } ${borrower.theClass.includes('3') ? "bg-customp w-max" : "" }`}>
+                                <div className={`p-2 py-1.5 flex items-center rounded-xl ${borrower.theClass.includes('5') ? "bg-customy w-max" : ""} ${borrower.theClass.includes('4') ? "bg-customg w-max" : ""} ${borrower.theClass.includes('3') ? "bg-customp w-max" : ""}`}>
                                     <span className='font-semibold text-xs'>{borrower.theClass}</span>
                                 </div>
                             </div>

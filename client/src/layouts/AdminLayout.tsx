@@ -6,8 +6,11 @@ import AdminBooks from '../pages/admin/AdminBooks'
 import AdminBorrowers from '../pages/admin/AdminBorrowers'
 import AdminLeaderboard from '../pages/admin/AdminLeaderboard'
 import { AdminAuthContextProvider } from '../context/admin/AdminAuthContext'
+import { useAdminAuthContext } from '../hooks/admin/useAdminAuthContext'
 
 const AdminLayout: React.FC = () => {
+    const { state } = useAdminAuthContext()
+    console.log(state)
     return (
         <>
             <AdminAuthContextProvider>

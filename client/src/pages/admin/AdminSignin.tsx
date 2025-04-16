@@ -2,46 +2,17 @@ import React, { useState } from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
-import { useAlertContext } from '../../hooks/useAlertContext';
+import { useAdminSignin } from '../../hooks/admin/useAdminSignin';
 
 const AdminSignin: React.FC = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string>('')
-    const { dispatch } = useAlertContext()
+    const {login, isLoading, error } = useAdminSignin()
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        const fetchData = async () => {
-            setIsLoading(true)
-            setError('')
-            const admin = { email, password }
-            const response = await fetch("/api/admin/signin", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(admin)
-            })
-            const json = await response.json()
 
-            if (!response.ok) {
-                setIsLoading(false)
-                setError(json.error)
-            }
-
-            if (response.ok) {
-                setIsLoading(false)
-                setError('')
-                dispatch({ type: 'SET_ALERT', payload: 'Successfully signed in' })
-                const timer = setTimeout(() => {
-                    dispatch({ type: 'REMOVE_ALERT', payload: 'Successfully signed in' })
-                }, 3000)
-
-                return () => clearTimeout(timer)
-            }
-        }
-
-        fetchData()
+        await login(email, password)
     }
     return (
         <div className='h-full w-full flex overflow-hidden'>

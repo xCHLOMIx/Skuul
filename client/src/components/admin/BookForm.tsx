@@ -1,8 +1,8 @@
 import { useState } from "react"
 import PrimaryButton from "../universal/PrimaryButton"
 import { LuSave } from "react-icons/lu"
-import { useAlertContext } from "../../hooks/useAlertContext"
-import { useBookContext } from "../../hooks/useBookContext"
+import { useAlertContext } from "../../hooks/universal/useAlertContext"
+import { useBookContext } from "../../hooks/universal/useBookContext"
 
 export const BookForm = () => {
     const [loading, setLoading] = useState<boolean>(false)

@@ -25,7 +25,7 @@ const AdminSidebar: React.FC = () => {
                         <div className='bg-primary px-2 py-0.5  outline-2 outline-white'>
                             <span className='font-bold text-white'>C</span>
                         </div>
-                        <span className='font-medium text-sm text-white'>Log out</span>
+                        <span className='font-medium text-sm text-white'>Sign out</span>
                     </div>
                     <FiLogOut size={24} color='white' />
                 </div>

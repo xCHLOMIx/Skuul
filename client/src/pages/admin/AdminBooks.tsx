@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Book from '../../components/universal/Book'
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch } from '../../hooks/universal/useFetch'
 import BookLoading from '../../components/admin/BookLoading'
 import { IoAdd } from 'react-icons/io5'
 import { BookForm } from '../../components/admin/BookForm'
-import { useBookContext } from '../../hooks/useBookContext'
+import { useBookContext } from '../../hooks/universal/useBookContext'
 
 interface BookInterface {
     _id: string,
