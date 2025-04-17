@@ -1,13 +1,13 @@
 import React from 'react'
 
 interface Book {
-    _id: string,
+    _id?: string,
     title: string,
     author: string,
     quantity: number,
-    status: string,
-    createdAt: Date,
-    updatedAt: Date
+    status?: string,
+    createdAt?: Date,
+    updatedAt?: Date
 }
 
 interface Prop {
