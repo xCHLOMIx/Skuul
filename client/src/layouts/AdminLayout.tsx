@@ -9,8 +9,6 @@ import { AdminAuthContextProvider } from '../context/admin/AdminAuthContext'
 import { useAdminAuthContext } from '../hooks/admin/useAdminAuthContext'
 
 const AdminLayout: React.FC = () => {
-    const { state } = useAdminAuthContext()
-    console.log(state)
     return (
         <>
             <AdminAuthContextProvider>
