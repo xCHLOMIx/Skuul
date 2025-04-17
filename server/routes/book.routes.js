@@ -4,11 +4,11 @@ const { createBook, getBooks, borrowBook, returnBook, sendNotification, getBorro
 const { requireAuth } = require('../middleware/admin.middleware')
 
 router.get('/', getBooks)
-router.post('/add', createBook)
+router.post('/add', requireAuth, createBook)
 router.post('/borrow', borrowBook)
 router.post('/return', returnBook)
 router.get('/notify', sendNotification)
-router.get('/borrowers', requireAuth, getBorrowers)
+router.get('/borrowers', getBorrowers)
 router.get('/readers', getReaders)
 
 module.exports = router

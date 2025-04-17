@@ -31,6 +31,7 @@ export const AdminAuthContextProvider = ({ children }: { children: ReactNode }) 
     useEffect(() => {
         const result = localStorage.getItem('admin')
         let admin = null
+
         if (result) {
             admin = JSON.parse(result)
         }
@@ -39,6 +40,7 @@ export const AdminAuthContextProvider = ({ children }: { children: ReactNode }) 
             dispatch({ type: 'SIGNIN', payload: admin })
         }
     }, [])
+    
     console.log('AdminAuthContext state:', state)
 
     return (

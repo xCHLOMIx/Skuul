@@ -1,11 +1,10 @@
 import React from 'react'
 import AdminSidebar from '../components/admin/AdminSidebar'
-import { Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import AdminDashboard from '../pages/admin/AdminDashboard'
 import AdminBooks from '../pages/admin/AdminBooks'
 import AdminBorrowers from '../pages/admin/AdminBorrowers'
 import AdminLeaderboard from '../pages/admin/AdminLeaderboard'
-import { AdminAuthContextProvider } from '../context/admin/AdminAuthContext'
 
 const AdminLayout: React.FC = () => {
     return (

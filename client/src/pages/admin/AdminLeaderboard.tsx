@@ -30,7 +30,6 @@ interface Reader {
 const AdminLeaderboard: React.FC = () => {
     const { data, isLoading }: { data: Reader[], isLoading: boolean } = useFetch('/api/books/readers')
 
-    console.log(data)
     return (
         <div className='h-full'>
             <div>
@@ -50,7 +49,7 @@ const AdminLeaderboard: React.FC = () => {
                         .map((reader, index) => {
                             if (index === 0) {
                                 return (
-                                    <div className='flex flex-col items-center gap-8'>
+                                    <div className='flex flex-col items-center gap-8' key={reader._id}>
                                         <div className='relative w-32 h-32 bg-primary flex justify-center items-center'>
                                             <span className='font-bold text-white text-5xl'>{reader.firstName[0]}</span>
                                             <div className='absolute top-10/12 bg-[#F4D476] px-4 py-2 '>
