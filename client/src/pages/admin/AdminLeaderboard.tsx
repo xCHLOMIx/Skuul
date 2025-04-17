@@ -1,7 +1,6 @@
 import React from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { useFetch } from '../../hooks/universal/useFetch';
-import BorrowerLoading from '../../components/admin/BorrowerLoading';
 import { GrPowerReset } from 'react-icons/gr';
 import { ScaleLoader } from 'react-spinners';
 

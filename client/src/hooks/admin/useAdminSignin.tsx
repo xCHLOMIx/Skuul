@@ -32,6 +32,7 @@ export const useAdminSignin = () => {
             adminDispatch({ type: 'SIGNIN', payload: json })
             alert({ type: 'SET_ALERT', payload: 'Successfully signed in' })
             navigator('/admin/dashboard')
+            localStorage.setItem('admin', JSON.stringify(json))
             const timer = setTimeout(() => {
                 alert({ type: 'REMOVE_ALERT', payload: 'Successfully signed in' })
             }, 3000)

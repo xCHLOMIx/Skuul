@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import AdminLayout from "../layouts/AdminLayout"
 import AdminSignin from "../pages/admin/AdminSignin"
 import StudentSignin from "../pages/student/StudentSignin"
@@ -9,6 +9,7 @@ import { useAdminAuthContext } from "../hooks/admin/useAdminAuthContext"
 function AppLayout() {
     const { state } = useAlertContext()
     const { state: adminState } = useAdminAuthContext()
+    
     return (
         <div className="h-screen">
             <div className={`${state.alert ? "top-0" : "-top-10"} transition-all duration-500 ease-in-out border border-green-200 bg-green-100 z-50 absolute w-full h-10 flex items-center justify-center text-sm text-center font-bold text-green-500`}>
@@ -18,11 +19,11 @@ function AppLayout() {
                 <Routes>
                     <Route
                         path="/admin/*"
-                        element={adminState.admin ? <AdminLayout /> : <AdminSignin />}
+                        element={adminState.admin ? <AdminLayout /> : <Navigate to="/admin/signin" />}
                     />
                     <Route
                         path='/admin/signin'
-                        element={<AdminSignin />}
+                        element={!adminState.admin ? <AdminSignin /> : <Navigate to="/admin/dashboard" />}
                     />
                     <Route
                         path='/student/signin'
