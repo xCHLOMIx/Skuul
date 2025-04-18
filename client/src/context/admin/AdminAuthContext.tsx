@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useReducer } from "react";
+import React, { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 
 interface Admin {
     _id: string,
@@ -6,7 +6,7 @@ interface Admin {
 }
 
 interface ContextType {
-    state: { admin: Admin }
+    state: { admin: Admin, isLoading: boolean }
     dispatch: React.Dispatch<any>
 }
 
@@ -27,6 +27,7 @@ export const AdminAuthContextProvider = ({ children }: { children: ReactNode }) 
     const [state, dispatch] = useReducer(adminAuthReducer, {
         admin: null
     })
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const result = localStorage.getItem('admin')
@@ -39,12 +40,13 @@ export const AdminAuthContextProvider = ({ children }: { children: ReactNode }) 
         if (admin) {
             dispatch({ type: 'SIGNIN', payload: admin })
         }
+        setIsLoading(false)
     }, [])
-    
+
     console.log('AdminAuthContext state:', state)
 
     return (
-        <AdminAuthContext.Provider value={{ state, dispatch }}>
+        <AdminAuthContext.Provider value={{ state: { admin: state.admin, isLoading }, dispatch }}>
             {children}
         </AdminAuthContext.Provider>
     )
