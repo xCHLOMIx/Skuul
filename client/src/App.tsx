@@ -1,14 +1,14 @@
 import { AdminAuthContextProvider } from "./context/admin/AdminAuthContext"
 import { AlertContextProvider } from "./context/universal/AlertContext"
 import { BookContextProvider } from "./context/universal/BookContext"
-import AppLayout from "./layouts/AppLayout"
+import UniversalLayout from "./layouts/UniversalLayout"
 
 function App() {
   return (
     <AdminAuthContextProvider>
       <BookContextProvider>
         <AlertContextProvider>
-          <AppLayout />
+          <UniversalLayout />
         </AlertContextProvider>
       </BookContextProvider>
     </AdminAuthContextProvider>

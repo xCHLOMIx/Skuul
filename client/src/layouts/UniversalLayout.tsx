@@ -1,12 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import AdminLayout from "../layouts/AdminLayout"
+import AdminLayout from "./AdminLayout"
 import AdminSignin from "../pages/admin/AdminSignin"
 import StudentSignin from "../pages/student/StudentSignin"
 import StudentSignup from "../pages/student/StudentSignup"
 import { useAlertContext } from "../hooks/universal/useAlertContext"
 import { useAdminAuthContext } from "../hooks/admin/useAdminAuthContext"
 
-function AppLayout() {
+function UniversalLayout() {
     const { state } = useAlertContext()
     const { state: adminState } = useAdminAuthContext()
     return (
@@ -21,6 +21,10 @@ function AppLayout() {
                             <Route
                                 path="/admin/*"
                                 element={adminState.admin ? <AdminLayout /> : <Navigate to="/admin/signin" />}
+                            />
+                            <Route
+                                path="/student/*"
+                                element={<AdminLayout />}
                             />
                             <Route
                                 path='/admin/signin'
@@ -42,4 +46,4 @@ function AppLayout() {
     )
 }
 
-export default AppLayout
+export default UniversalLayout
