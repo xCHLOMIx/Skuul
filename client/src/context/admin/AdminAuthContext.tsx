@@ -42,9 +42,7 @@ export const AdminAuthContextProvider = ({ children }: { children: ReactNode }) 
         }
         setIsLoading(false)
     }, [])
-
-    console.log('AdminAuthContext state:', state)
-
+    
     return (
         <AdminAuthContext.Provider value={{ state: { admin: state.admin, isLoading }, dispatch }}>
             {children}

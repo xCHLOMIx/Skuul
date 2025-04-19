@@ -1,5 +1,5 @@
 import React from 'react'
-import { links } from '../../data/link'
+import { links } from '../../data/adminLinks'
 import { FiLogOut } from "react-icons/fi";
 import { Link, useParams } from 'react-router-dom';
 import { useAdminSignout } from '../../hooks/admin/useAdminSignout';

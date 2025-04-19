@@ -5,6 +5,7 @@ import StudentSignin from "../pages/student/StudentSignin"
 import StudentSignup from "../pages/student/StudentSignup"
 import { useAlertContext } from "../hooks/universal/useAlertContext"
 import { useAdminAuthContext } from "../hooks/admin/useAdminAuthContext"
+import StudentLayout from "./StudentLayout"
 
 function UniversalLayout() {
     const { state } = useAlertContext()
@@ -24,7 +25,7 @@ function UniversalLayout() {
                             />
                             <Route
                                 path="/student/*"
-                                element={<AdminLayout />}
+                                element={<StudentLayout />}
                             />
                             <Route
                                 path='/admin/signin'

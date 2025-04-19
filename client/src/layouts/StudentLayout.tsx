@@ -1,16 +1,17 @@
 import React from 'react'
-import AdminSidebar from '../components/admin/AdminSidebar'
 import { Route, Routes } from 'react-router-dom'
 import AdminDashboard from '../pages/admin/AdminDashboard'
 import AdminBooks from '../pages/admin/AdminBooks'
 import AdminBorrowers from '../pages/admin/AdminBorrowers'
 import AdminLeaderboard from '../pages/admin/AdminLeaderboard'
+import StudentSidebar from '../components/student/StudentSidebar'
 
 const StudentLayout: React.FC = () => {
+
     return (
         <>
             <div className='h-full flex'>
-                <AdminSidebar />
+                <StudentSidebar />
                 <div className='bg-alt2 w-full p-10 overflow-y-scroll bar'>
                     <Routes>
                         <Route
