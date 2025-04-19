@@ -1,11 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import AdminDashboard from '../pages/admin/AdminDashboard'
 import AdminBooks from '../pages/admin/AdminBooks'
 import AdminBorrowers from '../pages/admin/AdminBorrowers'
-import AdminLeaderboard from '../pages/admin/AdminLeaderboard'
 import StudentSidebar from '../components/student/StudentSidebar'
 import StudentDashboard from '../pages/student/StudentDashboard'
+import StudentLeaderboard from '../pages/student/StudentLeaderboard'
 
 const StudentLayout: React.FC = () => {
 
@@ -29,7 +28,7 @@ const StudentLayout: React.FC = () => {
                         />
                         <Route
                             path='/leaderboard'
-                            element={<AdminLeaderboard />}
+                            element={<StudentLeaderboard />}
                         />
                     </Routes>
                 </div>
