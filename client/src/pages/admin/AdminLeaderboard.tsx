@@ -39,7 +39,7 @@ const AdminLeaderboard: React.FC = () => {
             <div className={`${isLoading ? "flex justify-center items-center h-full" : ""} mt-5`}>
                 {!isLoading &&
                     <div className='flex justify-between'>
-                        <h2 className='font-bold text-2xl text-primary'>All borrowers</h2>
+                        <h2 className='font-bold text-2xl text-primary'>All readers</h2>
                         <PrimaryButton type='button' isLoading={false} handleClick={() => { }} icon={<GrPowerReset size={20} />} text='Reset Leaderboard' styles='py-2.5 flex items-center gap-3' />
                     </div>
                 }
