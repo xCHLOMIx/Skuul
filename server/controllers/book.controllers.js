@@ -179,6 +179,7 @@ exports.getNotifications = async (req, res) => {
 }
 
 exports.sendNotification = async (req, res) => {
+    const { date } = req.body
     const students = await Student.find({ books: { $not: { $size: 0 } } })
 
     try {
@@ -191,10 +192,7 @@ exports.sendNotification = async (req, res) => {
                 bookNames.push(theBook.title)
             }
 
-            await Notification.create({
-                student,
-                books: bookNames
-            })
+            await Notification.create({ student, books: bookNames, date })
         }
         res.status(200).json({ message: "Notifications sent" })
     } catch (error) {
