@@ -14,6 +14,10 @@ const notificationSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: "Unread"
+    },
+    deadline: {
+        type: Date,
+        required: true
     }
 }, { timestamps: true })
 
