@@ -29,7 +29,7 @@ interface Props {
 
 const Borrower: React.FC<Props> = ({ borrower }) => {
     return (
-        <div key={borrower._id} className='bg-white border flex flex-col gap-3 border-alt4 p-4'>
+        <div className='bg-white border flex flex-col gap-3 border-alt4 p-4'>
             <div className='flex items-center gap-3'>
                 <h2 className='font-semibold text-xl'>{borrower.firstName} {borrower.lastName}</h2>
                 <div className={`p-2 py-1.5 flex items-center rounded-xl ${borrower.theClass.includes('5') ? "bg-customy w-max" : ""} ${borrower.theClass.includes('4') ? "bg-customg w-max" : ""} ${borrower.theClass.includes('3') ? "bg-customp w-max" : ""}`}>

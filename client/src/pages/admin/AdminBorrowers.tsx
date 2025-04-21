@@ -1,7 +1,6 @@
 import React from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoBell } from "react-icons/go";
-import { RiBookLine } from "react-icons/ri";
 import { useFetch } from '../../hooks/universal/useFetch';
 import BorrowerLoading from '../../components/admin/BorrowerLoading';
 import Borrower from '../../components/admin/Borrower';
@@ -45,7 +44,7 @@ const AdminBorrowers: React.FC = () => {
                 <div className='mt-3 grid grid-cols-1 gap-3.5'>
                     {isLoading && <BorrowerLoading />}
                     {data && data.map((borrower) => (
-                        <Borrower borrower={borrower} />
+                        <Borrower borrower={borrower} key={borrower._id} />
                     ))}
                 </div>
             </div>
