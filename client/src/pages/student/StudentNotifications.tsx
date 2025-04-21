@@ -16,7 +16,7 @@ interface NotificationInteface {
     student: Student[],
     books: string[],
     status: string,
-    date: Date,
+    deadline: Date,
     createdAt: Date
     updatedAt: Date
 }

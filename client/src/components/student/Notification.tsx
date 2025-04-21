@@ -15,7 +15,7 @@ interface Notification {
     student: Student[],
     books: string[],
     status: string,
-    date: Date,
+    deadline: Date,
     createdAt: Date
     updatedAt: Date
 }
@@ -44,7 +44,7 @@ const Notification: React.FC<Props> = ({ notification }) => {
                 </div>
             </div>
             <div className="flex flex-col gap-3">
-                <p>Gutabarwa, we’d love to remind you to return the following books to the library</p>
+                <p>{notification.student[0].firstName}, we’d love to remind you to return the following books to the library</p>
                 {notification.books.map((book) => (
                     <div key={book} className='ml-5 flex flex-col gap-2.5'>
                         <div className='flex items-center text-base font-semibold gap-2.5'>
@@ -55,7 +55,7 @@ const Notification: React.FC<Props> = ({ notification }) => {
                         </div>
                     </div>
                 ))}
-                <p>Please return them not later than 15th - June - 2025</p>
+                <p>Please return them not later than {new Date(notification.deadline).toLocaleDateString()}</p>
             </div>
         </div>
     )
