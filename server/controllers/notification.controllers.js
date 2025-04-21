@@ -4,13 +4,20 @@ const Notification = require('../models/notification.models')
 
 exports.getNotifications = async (req, res) => {
     const student = "67f3ded9cfae976d7cb9c618"
-    const notifications = await Notification.find({ student: student })
+    const notifications = await Notification.aggregate([{
+        $lookup: {
+            from: 'students',
+            foreignField: '_id',
+            localField: 'student',
+            as: 'student'
+        }
+    }])
 
     for (const notification of notifications) {
         await Notification.updateMany({ student: student }, { $set: { status: "Read" } })
     }
 
-    res.status(200).json({ notifications })
+    res.status(200).json(notifications)
 }
 
 exports.sendNotification = async (req, res) => {

@@ -5,6 +5,7 @@ import AdminBorrowers from '../pages/admin/AdminBorrowers'
 import StudentSidebar from '../components/student/StudentSidebar'
 import StudentDashboard from '../pages/student/StudentDashboard'
 import StudentLeaderboard from '../pages/student/StudentLeaderboard'
+import StudentNotifications from '../pages/student/StudentNotifications'
 
 const StudentLayout: React.FC = () => {
 
@@ -23,8 +24,8 @@ const StudentLayout: React.FC = () => {
                             element={<AdminBooks />}
                         />
                         <Route
-                            path='/borrowers'
-                            element={<AdminBorrowers />}
+                            path='/notifications'
+                            element={<StudentNotifications />}
                         />
                         <Route
                             path='/leaderboard'

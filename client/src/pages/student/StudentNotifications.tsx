@@ -3,33 +3,26 @@ import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoBell } from "react-icons/go";
 import { useFetch } from '../../hooks/universal/useFetch';
 import BorrowerLoading from '../../components/admin/BorrowerLoading';
-import Borrower from '../../components/admin/Borrower';
+import Notification from '../../components/student/Notification';
 
-interface BookInterface {
-    _id: string,
-    title: string,
-    author: string,
-    quantity: number,
-    status: string,
-    createdAt: Date,
-    updatedAt: Date
-}
-
-interface Borrower {
+interface Student {
     _id: string,
     firstName: string,
     lastName: string,
-    theClass: string,
-    email: string,
-    password: string,
-    books: BookInterface[]
+}
+
+interface NotificationInteface {
+    _id: string,
+    student: Student[],
+    books: string[],
+    status: string,
+    date: Date,
     createdAt: Date
     updatedAt: Date
 }
 
-const AdminBorrowers: React.FC = () => {
-    const { data, isLoading }: { data: Borrower[], isLoading: boolean } = useFetch('/api/books/borrowers')
-
+const StudentNotifications: React.FC = () => {
+    const { data, isLoading }: { data: NotificationInteface[], isLoading: boolean } = useFetch('/api/notifications/')
     return (
         <div>
             <div>
@@ -43,8 +36,8 @@ const AdminBorrowers: React.FC = () => {
                 </div>
                 <div className='mt-3 grid grid-cols-1 gap-3.5'>
                     {isLoading && <BorrowerLoading />}
-                    {data && data.map((borrower) => (
-                        <Borrower borrower={borrower} key={borrower._id} />
+                    {data && data.map((notification) => (
+                        <Notification key={notification._id} notification={notification}/>
                     ))}
                 </div>
             </div>
@@ -52,4 +45,4 @@ const AdminBorrowers: React.FC = () => {
     )
 }
 
-export default AdminBorrowers
+export default StudentNotifications
