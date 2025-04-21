@@ -166,37 +166,3 @@ exports.getReaders = async (req, res) => {
 
 //     res.status(200).json(theBorrowers)
 // }
-
-exports.getNotifications = async (req, res) => {
-    const student = "67ebd6821603e697847fbd1e"
-    const notifications = await Notification.find({ student: student })
-
-    for (const notification of notifications) {
-        await Notification.updateMany({ student: student }, { $set: { status: "Read" } })
-    }
-
-    res.status(200).json({ notifications })
-}
-
-exports.sendNotification = async (req, res) => {
-    const { date } = req.body
-    const students = await Student.find({ books: { $not: { $size: 0 } } })
-
-    try {
-        for (const student of students) {
-            const books = student.books
-            const bookNames = []
-
-            for (const book of books) {
-                const theBook = await Book.findOne({ _id: book })
-                bookNames.push(theBook.title)
-            }
-
-            await Notification.create({ student, books: bookNames, date })
-        }
-        res.status(200).json({ message: "Notifications sent" })
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-
-}

@@ -7,6 +7,7 @@ const PORT = process.env.PORT
 const bookRoutes = require('./routes/book.routes')
 const studentRoutes = require('./routes/student.routes')
 const adminRoutes = require('./routes/admin.routes')
+const notificationRoutes = require('./routes/notification.routes')
 
 mongoose.connect('mongodb://localhost:27017/Skuul')
     .then(() => {
@@ -25,5 +26,6 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/books', bookRoutes)
+app.use('/api/notifications', notificationRoutes)
 app.use('/api/students', studentRoutes)
 app.use('/api/admin', adminRoutes)
