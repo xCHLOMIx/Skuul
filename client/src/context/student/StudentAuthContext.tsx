@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, ReactNode, useReducer } from "react";
 
 interface Student {
     _id: string,
@@ -12,9 +12,9 @@ interface ContextInterface {
 
 const studentReducer = (state: { student: Student }, action: any) => {
     switch (action.type) {
-        case 'LOGIN':
+        case 'SIGN_IN':
             return { student: action.payload }
-        case 'LOGOUT':
+        case 'SIGN_OUT':
             return { student: null }
         default:
             return state
