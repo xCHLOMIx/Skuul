@@ -39,7 +39,7 @@ const LeaderboardItem: React.FC<Props> = ({ reader, index }) => {
                 <div>
                     <div className='flex items-center gap-3'>
                         <h2 className='font-semibold text-xl'>{reader.firstName} {reader.lastName}</h2>
-                        <div className={`p-2 py-1.5 flex items-center rounded-xl ${reader.theClass.includes('5') ? "bg-customy w-max" : ""} ${reader.theClass.includes('4') ? "bg-customg w-max" : ""} ${reader.theClass.includes('3') ? "bg-customp w-max" : ""}`}>
+                        <div className={`p-2 py-1.5 flex items-center ${reader.theClass.includes('5') ? "bg-customy w-max" : ""} ${reader.theClass.includes('4') ? "bg-customg w-max" : ""} ${reader.theClass.includes('3') ? "bg-customp w-max" : ""}`}>
                             <span className='font-semibold text-xs'>{reader.theClass}</span>
                         </div>
                     </div>

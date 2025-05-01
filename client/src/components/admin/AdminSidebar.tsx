@@ -11,6 +11,14 @@ const AdminSidebar: React.FC = () => {
     const handleClick = async () => {
         logout()
     }
+    
+    const loggedIn = localStorage.getItem('admin')
+    let admin;
+
+    if (loggedIn) {
+        admin = JSON.parse(loggedIn)
+    }
+    console.log(admin)
     return (
         <div className='bg-primary min-w-xs p-5 h-full flex flex-col justify-between'>
             <div className='flex flex-col gap-4 justify-between'>
@@ -29,8 +37,8 @@ const AdminSidebar: React.FC = () => {
             <div>
                 <div onClick={handleClick} className='flex items-center gap-4 hover:bg-alt cursor-pointer px-4 py-4 justify-between'>
                     <div className='flex items-center gap-4'>
-                        <div className='bg-primary px-2 py-0.5  outline-2 outline-white'>
-                            <span className='font-bold text-white'>C</span>
+                        <div className='bg-primary px-3 max-w-9 py-1 outline-2 outline-white'>
+                            <span className='font-bold text-white'>L</span>
                         </div>
                         <span className='font-medium text-sm text-white'>Sign out</span>
                     </div>

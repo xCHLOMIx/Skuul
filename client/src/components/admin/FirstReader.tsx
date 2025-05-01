@@ -40,7 +40,7 @@ const FirstReader: React.FC<Props> = ({ reader, index }) => {
             <div className='flex flex-col items-center'>
                 <div className='flex items-center gap-2'>
                     <span className='font-bold text-xl'>{reader.firstName} {reader.lastName}</span>
-                    <div className={`p-2 py-1.5 flex items-center rounded-xl ${reader.theClass.includes('5') ? "bg-customy w-max" : ""} ${reader.theClass.includes('4') ? "bg-customg w-max" : ""} ${reader.theClass.includes('3') ? "bg-customp w-max" : ""}`}>
+                    <div className={`p-2 py-1.5 flex items-center ${reader.theClass.includes('5') ? "bg-customy w-max" : ""} ${reader.theClass.includes('4') ? "bg-customg w-max" : ""} ${reader.theClass.includes('3') ? "bg-customp w-max" : ""}`}>
                         <span className='font-semibold text-xs'>{reader.theClass}</span>
                     </div>
                 </div>

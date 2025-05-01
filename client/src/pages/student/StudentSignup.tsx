@@ -67,8 +67,8 @@ const StudentSignup = () => {
     console.log(`Two ${two}`)
     return (
         <div className='h-full w-full flex overflow-hidden'>
-            <div className='h-full max-lg:hidden min-w-2/3 flex justify-center items-center bg-primary'>
-                <img src={image} className='w-3/4 opacity-90' alt="" />
+            <div className='h-full max-lg:hidden min-w-2/3 w-2/3  p-28 flex justify-center items-center bg-primary'>
+                <img src={image} className='h-full opacity-90' alt="" />
             </div>
             <div className='h-full w-full px-12 flex flex-col justify-center gap-4'>
                 <div className='flex items-center gap-3'>
@@ -141,7 +141,7 @@ const StudentSignup = () => {
                                         key={index}
                                         type="text"
                                         maxLength={1}
-                                        className='input text-center'
+                                        className='input text-center pwd'
                                         onChange={(e) => {
                                             setOne(false)
                                             setTwo(true)

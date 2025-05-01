@@ -57,5 +57,11 @@ input:-webkit-autofill {
 
 @keyframes onAutoFillStart {
   from {}
+
   to {}
+}
+
+.pwd {
+  -webkit-text-security: disc;
+  /* Works in Chrome, Safari */
 }
