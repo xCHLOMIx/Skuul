@@ -1,14 +1,17 @@
-import React, { useRef, useState } from 'react'
+import React, { use, useRef, useState } from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAlertContext } from '../../hooks/universal/useAlertContext';
 
 
 const StudentSignin: React.FC = () => {
     const [email, setEmail] = useState('')
+    const [error, setError] = useState<string>('')
     const inputRefs = useRef<HTMLInputElement[]>([])
-
+    const navigator = useNavigate()
+    const { dispatch } = useAlertContext()
 
     const handleChange = (e: any, index: number) => {
         if (e.target.value.length > 0 && index < inputRefs.current.length - 1) {
@@ -26,6 +29,30 @@ const StudentSignin: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+
+        const pin = inputRefs.current.map((e) => e.value).join('')
+        const doLogin = async () => {
+            const response = await fetch('/api/students/signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, pin })
+            })
+            const json = await response.json()
+
+            if (!response.ok) {
+                setError(json.error)
+            } else {
+                navigator('/student/dashboard')
+                dispatch({ type: 'SET_ALERT', payload: 'Successfully signed in!' })
+                const timer = setTimeout(() => {
+                    dispatch({ type: 'REMOVE_ALERT'})
+                }, 3000)
+
+                return () => clearTimeout(timer)
+            }
+        }
+
+        doLogin()
     }
 
     return (
@@ -38,6 +65,7 @@ const StudentSignin: React.FC = () => {
                     <GoShieldLock color='#D55A29' size={32} />
                     <h1 className='text-2xl font-bold'>Student Login</h1>
                 </div>
+                {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
                 <form onSubmit={handleSubmit} className='w-full flex flex-col gap-4'>
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>Email:</label>
