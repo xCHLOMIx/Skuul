@@ -1,6 +1,4 @@
 import React from 'react'
-import PrimaryButton from '../../components/universal/PrimaryButton'
-import { GoBell } from "react-icons/go";
 import { useFetch } from '../../hooks/universal/useFetch';
 import BorrowerLoading from '../../components/admin/BorrowerLoading';
 import Notification from '../../components/student/Notification';
