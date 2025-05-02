@@ -1,17 +1,15 @@
-import React, { use, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
-import { Link, useNavigate } from 'react-router-dom';
-import { useAlertContext } from '../../hooks/universal/useAlertContext';
+import { Link } from 'react-router-dom';
+import { useStudentSignin } from '../../hooks/student/useStudentSignin';
 
 
 const StudentSignin: React.FC = () => {
     const [email, setEmail] = useState('')
-    const [error, setError] = useState<string>('')
     const inputRefs = useRef<HTMLInputElement[]>([])
-    const navigator = useNavigate()
-    const { dispatch } = useAlertContext()
+    const {login, error} = useStudentSignin() 
 
     const handleChange = (e: any, index: number) => {
         if (e.target.value.length > 0 && index < inputRefs.current.length - 1) {
@@ -31,28 +29,7 @@ const StudentSignin: React.FC = () => {
         e.preventDefault()
 
         const pin = inputRefs.current.map((e) => e.value).join('')
-        const doLogin = async () => {
-            const response = await fetch('/api/students/signin', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, pin })
-            })
-            const json = await response.json()
-
-            if (!response.ok) {
-                setError(json.error)
-            } else {
-                navigator('/student/dashboard')
-                dispatch({ type: 'SET_ALERT', payload: 'Successfully signed in!' })
-                const timer = setTimeout(() => {
-                    dispatch({ type: 'REMOVE_ALERT'})
-                }, 3000)
-
-                return () => clearTimeout(timer)
-            }
-        }
-
-        doLogin()
+        login(email,pin)
     }
 
     return (

@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 
 interface Admin {
-    _id: string,
+    title: string,
     token: string
 }
 

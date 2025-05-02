@@ -1,7 +1,7 @@
-import React, { createContext, ReactNode, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 
 interface Student {
-    _id: string,
+    firstName: string,
     token: string
 }
 
