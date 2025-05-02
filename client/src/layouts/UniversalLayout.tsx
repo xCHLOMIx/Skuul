@@ -6,10 +6,13 @@ import StudentSignup from "../pages/student/StudentSignup"
 import { useAlertContext } from "../hooks/universal/useAlertContext"
 import { useAdminAuthContext } from "../hooks/admin/useAdminAuthContext"
 import StudentLayout from "./StudentLayout"
+import { useStudentAuthContext } from "../hooks/student/useStudentAuthContext"
 
 function UniversalLayout() {
     const { state } = useAlertContext()
     const { state: adminState } = useAdminAuthContext()
+    const { state: studentState } = useStudentAuthContext()
+
     return (
         <>
             {!adminState.isLoading &&
@@ -25,7 +28,7 @@ function UniversalLayout() {
                             />
                             <Route
                                 path="/student/*"
-                                element={<StudentLayout />}
+                                element={studentState.student ? <StudentLayout /> : <Navigate to="/student/signin" />}
                             />
                             <Route
                                 path='/admin/signin'

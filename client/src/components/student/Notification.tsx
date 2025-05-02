@@ -54,7 +54,7 @@ const Notification: React.FC<Props> = ({ notification }) => {
                         </div>
                     </div>
                 ))}
-                <p>Please return them not later than <span className="font-semibold px-2 p-1.5 bg-blue-100">{new Date(notification.deadline).toLocaleDateString()}</span></p>
+                <p>Please return them not later than <span className="font-semibold">{new Date(notification.deadline).toLocaleDateString()}</span></p>
             </div>
         </div>
     )

@@ -56,7 +56,7 @@ const StudentSignin: React.FC = () => {
                     </div>
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>PIN:</label>
-                        <div className='grid grid-cols-6 gap-3'>
+                        <div className='grid grid-cols-6 gap-3 max-sm:gap-1'>
                             {Array.from({ length: 6 }).map((_, index) => (
                                 <input
                                     ref={(el) => { if (el) inputRefs.current[index] = el }}

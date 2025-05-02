@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 
 interface Student {
     firstName: string,
@@ -28,6 +28,13 @@ export const StudentAuthContextProvider = ({ children }: { children: React.React
         student: null
     })
 
+    useEffect(() => {
+        const loggedIn = localStorage.getItem('student')
+        let admin;
+
+        if (loggedIn) admin = JSON.parse(loggedIn)
+        dispatch({ type: 'SIGN_IN', payload: loggedIn })
+    }, [])
     return (
         <StudentAuthContext.Provider value={{ state, dispatch }}>
             {children}

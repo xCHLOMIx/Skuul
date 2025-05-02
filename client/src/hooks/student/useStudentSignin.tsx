@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom"
 import { useAlertContext } from "../universal/useAlertContext"
 import { useState } from "react"
+import { useStudentAuthContext } from "./useStudentAuthContext"
 
 export const useStudentSignin = () => {
     const [error, setError] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const navigator = useNavigate()
     const { dispatch } = useAlertContext()
-    const { dispatch: studentDispatch } = useAlertContext()
+    const { dispatch: studentDispatch } = useStudentAuthContext()
 
     const login = async (email: string, pin: string) => {
         setIsLoading(true)
@@ -23,7 +24,7 @@ export const useStudentSignin = () => {
             setError(json.error)
         } else {
             setIsLoading(false)
-            studentDispatch({ type: 'SIGN_IN', payload: json})
+            studentDispatch({ type: 'SIGN_IN', payload: json })
             localStorage.setItem('student', JSON.stringify(json))
             navigator('/student/dashboard')
             dispatch({ type: 'SET_ALERT', payload: 'Successfully signed in!' })
