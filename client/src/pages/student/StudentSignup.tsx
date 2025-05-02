@@ -4,8 +4,8 @@ import image from "../../assets/login-bg.svg"
 import { GoShieldLock } from 'react-icons/go'
 import { classes } from '../../data/classes'
 import { PiCaretCircleLeftLight, PiCaretDownBold } from "react-icons/pi";
-import { Link, useNavigate } from 'react-router-dom'
-import { useAlertContext } from '../../hooks/universal/useAlertContext'
+import { Link } from 'react-router-dom'
+import { useStudentSignup } from '../../hooks/student/useStudentSignup'
 
 const StudentSignup = () => {
     const [email, setEmail] = useState('')
@@ -14,12 +14,9 @@ const StudentSignup = () => {
     const [theClass, setTheClass] = useState('Select your Class')
     const inputRefs = useRef<HTMLInputElement[]>([])
     const [isClicked, setIsClicked] = useState(false)
-    const [error, setError] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
     const [two, setTwo] = useState(false)
     const [one, setOne] = useState(true)
-    const { dispatch } = useAlertContext()
-    const navigator = useNavigate()
+    const { login, isLoading, error } = useStudentSignup()
 
 
     const handleChange = (e: any, index: number) => {
@@ -30,41 +27,13 @@ const StudentSignup = () => {
         if (e.key === "Backspace" && e.target.value === '' && index > 0) inputRefs.current[index - 1].focus()
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-
         const pin = inputRefs.current.map((e) => e.value).join('')
-        const student = { email, firstName: firstName.toUpperCase(), lastName, theClass, pin }
-        const postData = async () => {
-            setIsLoading(true)
-            const response = await fetch('/api/students/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(student)
-            })
-            const json = await response.json()
 
-            if (!response.ok) {
-                setError(json.error)
-                setIsLoading(false)
-
-            } else {
-                setIsLoading(false)
-                setError('')
-                navigator('/student/signin')
-                dispatch({ type: 'SET_ALERT', payload: 'Successfully signed up!' })
-                const timer = setTimeout(() => {
-                    dispatch({ type: 'REMOVE_ALERT' })
-                }, 3000)
-
-                return () => clearTimeout(timer)
-            }
-        }
-
-        postData()
+        await login(email, firstName, lastName, theClass, pin)
     }
-    console.log(`One ${one}`)
-    console.log(`Two ${two}`)
+
     return (
         <div className='h-full w-full flex overflow-hidden'>
             <div className='h-full max-lg:hidden min-w-2/3 w-2/3  p-28 flex justify-center items-center bg-primary'>

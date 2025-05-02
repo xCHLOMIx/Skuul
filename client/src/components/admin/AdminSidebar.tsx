@@ -4,19 +4,16 @@ import { FiLogOut } from "react-icons/fi";
 import { Link, useParams } from 'react-router-dom';
 import { useAdminSignout } from '../../hooks/admin/useAdminSignout';
 
-const AdminSidebar: React.FC = () => {
+interface Prop {
+    admin: string
+}
+
+const AdminSidebar: React.FC<Prop> = ({ admin }) => {
     const theLink = useParams()['*']
     const { logout } = useAdminSignout()
 
     const handleClick = async () => {
         logout()
-    }
-    
-    const loggedIn = localStorage.getItem('admin')
-    let admin;
-
-    if (loggedIn) {
-        admin = JSON.parse(loggedIn)
     }
 
     return (
@@ -38,7 +35,7 @@ const AdminSidebar: React.FC = () => {
                 <div onClick={handleClick} className='flex items-center gap-4 hover:bg-alt cursor-pointer px-4 py-4 justify-between'>
                     <div className='flex items-center gap-4'>
                         <div className='bg-primary px-3 max-w-9 py-1 outline-2 outline-white'>
-                            <span className='font-bold text-white'>{admin.admin[0]}</span>
+                            <span className='font-bold text-white'>{admin[0]}</span>
                         </div>
                         <span className='font-medium text-sm text-white'>Sign out</span>
                     </div>

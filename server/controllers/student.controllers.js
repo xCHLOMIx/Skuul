@@ -18,9 +18,9 @@ exports.signUp = async (req, res) => {
         if (error.message.includes(':')) {
             theError += error.message.split(':')[2]
         }
-        
+
         if (theError.length > 1) res.status(400).json({ error: theError.trim() })
-            else res.status(400).json({ error: error.message })
+        else res.status(400).json({ error: error.message })
     }
 }
 
@@ -30,7 +30,10 @@ exports.signIn = async (req, res) => {
     try {
         const student = await Student.signIn(email, pin)
         const token = await createToken(student._id)
-        res.status(200).json({ student: student.firstName, token })
+
+        setTimeout(() => {
+            res.status(200).json({ student: student.firstName, token })
+        }, 5000)
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

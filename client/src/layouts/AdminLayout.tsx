@@ -7,15 +7,22 @@ import AdminBorrowers from '../pages/admin/AdminBorrowers'
 import AdminLeaderboard from '../pages/admin/AdminLeaderboard'
 
 const AdminLayout: React.FC = () => {
+    const loggedIn = localStorage.getItem('admin')
+    let admin;
+
+    if (loggedIn) {
+        admin = JSON.parse(loggedIn)
+    }
+
     return (
         <>
             <div className='h-full flex'>
-                <AdminSidebar />
+                <AdminSidebar admin={admin.admin} />
                 <div className='bg-alt2 w-full p-10 overflow-y-scroll bar'>
                     <Routes>
                         <Route
                             path='/dashboard'
-                            element={<AdminDashboard />}
+                            element={<AdminDashboard admin={admin.admin} />}
                         />
                         <Route
                             path='/books'

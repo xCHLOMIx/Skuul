@@ -4,22 +4,28 @@ import { useState } from "react"
 
 export const useStudentSignin = () => {
     const [error, setError] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const navigator = useNavigate()
     const { dispatch } = useAlertContext()
+    const { dispatch: studentDispatch } = useAlertContext()
 
     const login = async (email: string, pin: string) => {
+        setIsLoading(true)
         const response = await fetch('/api/students/signin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, pin })
         })
         const json = await response.json()
-        console.log(json)
+
         if (!response.ok) {
+            setIsLoading(false)
             setError(json.error)
         } else {
+            setIsLoading(false)
+            studentDispatch({ type: 'SIGN_IN', payload: json})
+            localStorage.setItem('student', JSON.stringify(json))
             navigator('/student/dashboard')
-
             dispatch({ type: 'SET_ALERT', payload: 'Successfully signed in!' })
             const timer = setTimeout(() => {
                 dispatch({ type: 'REMOVE_ALERT' })
@@ -29,5 +35,5 @@ export const useStudentSignin = () => {
         }
     }
 
-    return { login, error }
+    return { login, error, isLoading }
 }

@@ -9,7 +9,7 @@ import { useStudentSignin } from '../../hooks/student/useStudentSignin';
 const StudentSignin: React.FC = () => {
     const [email, setEmail] = useState('')
     const inputRefs = useRef<HTMLInputElement[]>([])
-    const {login, error} = useStudentSignin() 
+    const { login, error, isLoading } = useStudentSignin()
 
     const handleChange = (e: any, index: number) => {
         if (e.target.value.length > 0 && index < inputRefs.current.length - 1) {
@@ -25,11 +25,11 @@ const StudentSignin: React.FC = () => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
         const pin = inputRefs.current.map((e) => e.value).join('')
-        login(email,pin)
+        await login(email, pin)
     }
 
     return (
@@ -70,7 +70,7 @@ const StudentSignin: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                    <PrimaryButton type='submit' isLoading={false} handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Sign in' />
+                    <PrimaryButton type='submit' isLoading={isLoading} handleClick={() => { }} icon='' styles='hover:bg-white hover:text-primary border-2 transition duration-200 border-primary hover:border-primary' text='Sign in' />
                 </form>
                 <Link to='/student/signup' className='self-end font-bold text-primary cursor-pointer'>
                     New? Sign up here
