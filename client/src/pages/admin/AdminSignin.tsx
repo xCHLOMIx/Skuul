@@ -3,6 +3,7 @@ import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
 import { useAdminSignin } from '../../hooks/admin/useAdminSignin';
+import ErrorComponent from '../../components/universal/ErrorComponent';
 
 const AdminSignin: React.FC = () => {
     const [email, setEmail] = useState<string>('')
@@ -24,7 +25,7 @@ const AdminSignin: React.FC = () => {
                     <GoShieldLock color='#D55A29' size={32} />
                     <h1 className='text-2xl font-bold'>Admin Login</h1>
                 </div>
-                {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
+                {error && <ErrorComponent error={error} /> }
                 <form className='w-full flex flex-col gap-4' onSubmit={(e) => handleSubmit(e)}>
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>Email:</label>

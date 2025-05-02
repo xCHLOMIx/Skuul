@@ -17,12 +17,12 @@ const AdminLayout: React.FC = () => {
     return (
         <>
             <div className='h-full flex'>
-                <AdminSidebar admin={admin.admin} />
+                <AdminSidebar admin={admin.title} />
                 <div className='bg-alt2 w-full p-10 overflow-y-scroll bar'>
                     <Routes>
                         <Route
                             path='/dashboard'
-                            element={<AdminDashboard admin={admin.admin} />}
+                            element={<AdminDashboard admin={admin.title} />}
                         />
                         <Route
                             path='/books'

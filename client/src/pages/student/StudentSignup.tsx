@@ -6,6 +6,7 @@ import { classes } from '../../data/classes'
 import { PiCaretCircleLeftLight, PiCaretDownBold } from "react-icons/pi";
 import { Link } from 'react-router-dom'
 import { useStudentSignup } from '../../hooks/student/useStudentSignup'
+import ErrorComponent from '../../components/universal/ErrorComponent'
 
 const StudentSignup = () => {
     const [email, setEmail] = useState('')
@@ -44,7 +45,7 @@ const StudentSignup = () => {
                     <GoShieldLock color='#D55A29' size={32} />
                     <h1 className='text-2xl font-bold'>Student Sign up</h1>
                 </div>
-                {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
+                {error && <ErrorComponent error={error} /> }
                 <form onSubmit={handleSubmit} className='w-full transition duration-300 flex flex-col overflow-hidden items-center h-[372px]  relative'>
                     <section className={`absolute ${two ? "-translate-x-full" : ""} ${one ? "left-0" : ""} px-1 w-full transition-all duration-300 flex flex-col gap-4`}>
                         <div className='flex flex-col gap-2.5'>

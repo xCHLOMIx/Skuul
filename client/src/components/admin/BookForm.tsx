@@ -5,6 +5,7 @@ import { useAlertContext } from "../../hooks/universal/useAlertContext"
 import { useBookContext } from "../../hooks/universal/useBookContext"
 import Book from "../universal/Book"
 import { useAdminAuthContext } from "../../hooks/admin/useAdminAuthContext"
+import ErrorComponent from "../universal/ErrorComponent"
 
 export const BookForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -16,7 +17,7 @@ export const BookForm = () => {
     const { dispatch } = useBookContext()
     const { state } = useAdminAuthContext()
     const book = { title, author, quantity, status: "Available" }
-    console.log(state.admin.admin)
+    // console.log(state.admin.title)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
@@ -56,7 +57,7 @@ export const BookForm = () => {
     return (
         <div className={`grid grid-cols-4 gap-2.5 w-full mt-3 bg-white p-4 border border-alt5`}>
             <div className="col-span-3">
-                {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
+                {error && <ErrorComponent error={error} /> }
                 <form className='w-full flex flex-col gap-2.5' onSubmit={(e) => handleSubmit(e)}>
                     <div className='flex flex-col gap-2.5 w-full'>
                         <label htmlFor="" className='font-light'>Book title:</label>

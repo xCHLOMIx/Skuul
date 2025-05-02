@@ -4,6 +4,7 @@ import { GoShieldLock } from "react-icons/go";
 import image from "../../assets/login-bg.svg"
 import { Link } from 'react-router-dom';
 import { useStudentSignin } from '../../hooks/student/useStudentSignin';
+import ErrorComponent from '../../components/universal/ErrorComponent';
 
 
 const StudentSignin: React.FC = () => {
@@ -42,7 +43,7 @@ const StudentSignin: React.FC = () => {
                     <GoShieldLock color='#D55A29' size={32} />
                     <h1 className='text-2xl font-bold'>Student Login</h1>
                 </div>
-                {error && <div className='bg-red-50 p-3 border-2 border-red-300 text-red-400'>{error}</div>}
+                {error && <ErrorComponent error={error} /> }
                 <form onSubmit={handleSubmit} className='w-full flex flex-col gap-4'>
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>Email:</label>

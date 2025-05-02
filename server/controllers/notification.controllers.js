@@ -35,7 +35,7 @@ exports.sendNotification = async (req, res) => {
 
     try {
         if (!deadline) {
-            throw Error("Dealine date is required")
+            throw Error("Deadline date is required")
         }
         for (const student of students) {
             const books = student.books
