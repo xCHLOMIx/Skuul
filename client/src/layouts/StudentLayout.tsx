@@ -7,16 +7,22 @@ import StudentNotifications from '../pages/student/StudentNotifications'
 import StudentBooks from '../pages/student/StudentBooks'
 
 const StudentLayout: React.FC = () => {
+    const loggedIn = localStorage.getItem('student')
+    let student;
+
+    if(loggedIn) {
+        student = JSON.parse(loggedIn)
+    }
 
     return (
         <>
             <div className='h-full flex'>
-                <StudentSidebar />
+                <StudentSidebar student={student.student} />
                 <div className='bg-alt2 w-full p-10 overflow-y-scroll bar'>
                     <Routes>
                         <Route
                             path='/dashboard'
-                            element={<StudentDashboard />}
+                            element={<StudentDashboard student={student.student} />}
                         />
                         <Route
                             path='/books'

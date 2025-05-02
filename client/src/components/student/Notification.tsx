@@ -1,5 +1,4 @@
 import React from "react"
-import { GoBell } from "react-icons/go";
 import { PiBellRinging, PiBell } from "react-icons/pi";
 import { RiBook2Line } from "react-icons/ri"
 import { VscLibrary } from "react-icons/vsc"
@@ -44,7 +43,7 @@ const Notification: React.FC<Props> = ({ notification }) => {
                 </div>
             </div>
             <div className="flex flex-col gap-3">
-                <p>{notification.student[0].firstName}, we’d love to remind you to return the following books to the library</p>
+                <p>{notification.student[0].firstName}, we’d love to remind you to return the following books to the library:</p>
                 {notification.books.map((book) => (
                     <div key={book} className='ml-5 flex flex-col gap-2.5'>
                         <div className='flex items-center text-base font-semibold gap-2.5'>
@@ -55,7 +54,7 @@ const Notification: React.FC<Props> = ({ notification }) => {
                         </div>
                     </div>
                 ))}
-                <p>Please return them not later than {new Date(notification.deadline).toLocaleDateString()}</p>
+                <p>Please return them not later than <span className="font-semibold px-2 p-1.5 bg-blue-100">{new Date(notification.deadline).toLocaleDateString()}</span></p>
             </div>
         </div>
     )
