@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { GoBell } from "react-icons/go";
 import { useFetch } from '../../hooks/universal/useFetch';
 import BorrowerLoading from '../../components/admin/BorrowerLoading';
 import Borrower from '../../components/admin/Borrower';
+import ReminderForm from '../../components/admin/ReminderForm';
 
 interface BookInterface {
     _id: string,
@@ -29,6 +30,7 @@ interface Borrower {
 
 const AdminBorrowers: React.FC = () => {
     const { data, isLoading }: { data: Borrower[], isLoading: boolean } = useFetch('/api/books/borrowers')
+    const [form, setForm] = useState<boolean>(false)
 
     return (
         <div>
@@ -37,9 +39,12 @@ const AdminBorrowers: React.FC = () => {
                 <span className='text-sm text-alt3'>All students that borrowed books</span>
             </div>
             <div className='mt-5'>
-                <div className='flex justify-between'>
-                    <h2 className='font-bold text-2xl text-primary'>All borrowers</h2>
-                    <PrimaryButton type='button' isLoading={false} handleClick={() => { }} icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
+                <div className='flex flex-col justify-between'>
+                    <div className='flex justify-between'>
+                        <h2 className='font-bold text-2xl text-primary'>All borrowers</h2>
+                        <PrimaryButton type='button' isLoading={false} handleClick={() => setForm(!form)} icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
+                    </div>
+                    {form && <ReminderForm />}
                 </div>
                 <div className='mt-3 grid grid-cols-1 gap-3.5'>
                     {isLoading && <BorrowerLoading />}

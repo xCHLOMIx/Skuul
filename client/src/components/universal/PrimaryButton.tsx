@@ -2,12 +2,12 @@ import React from 'react'
 import { ScaleLoader } from 'react-spinners';
 
 interface Prop {
-  icon: any,
-  text: string,
-  styles: string
+  icon?: any,
+  text?: string,
+  styles?: string
   handleClick?: () => void;
-  isLoading: boolean
-  type: "submit" | "reset" | "button" | undefined
+  isLoading?: boolean
+  type?: "submit" | "reset" | "button" | undefined
 }
 
 const PrimaryButton: React.FC<Prop> = ({ text, styles, icon, handleClick, isLoading, type }) => {

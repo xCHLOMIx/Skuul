@@ -4,6 +4,7 @@ import { LuSave } from "react-icons/lu"
 import { useAlertContext } from "../../hooks/universal/useAlertContext"
 import { useBookContext } from "../../hooks/universal/useBookContext"
 import Book from "../universal/Book"
+import { useAdminAuthContext } from "../../hooks/admin/useAdminAuthContext"
 
 export const BookForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -13,8 +14,9 @@ export const BookForm = () => {
     const [error, setError] = useState<string>('')
     const { dispatch: alert } = useAlertContext()
     const { dispatch } = useBookContext()
+    const { state } = useAdminAuthContext()
     const book = { title, author, quantity, status: "Available" }
-
+    console.log(state.admin.admin)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
@@ -22,11 +24,15 @@ export const BookForm = () => {
         const postData = async () => {
             const response = await fetch('/api/books/add', {
                 method: 'POST',
-                headers: { 'Content-type': 'application/json' },
+                headers: { 
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${state.admin.token}`
+                },
                 body: JSON.stringify(book)
             })
+
             const json = await response.json()
-            console.log(json)
+
             if (!response.ok) {
                 setLoading(false)
                 setError(json.error)

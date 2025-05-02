@@ -26,7 +26,7 @@ exports.adminSignin = async (req, res) => {
         const admin = await Admin.signin(email, password)
         const token = createToken(admin._id)
 
-        res.status(200).json({ admin: admin.title, token })
+        res.status(200).json({ title: admin.title, token })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
