@@ -1,12 +1,13 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 
 interface Student {
-    firstName: string,
+    id: string,
+    name: string,
     token: string
 }
 
 interface ContextInterface {
-    state: { student: Student },
+    state: { student: Student, isLoading: boolean },
     dispatch: React.Dispatch<any>
 }
 
@@ -27,16 +28,18 @@ export const StudentAuthContextProvider = ({ children }: { children: React.React
     const [state, dispatch] = useReducer(studentReducer, {
         student: null
     })
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
         const loggedIn = localStorage.getItem('student')
-        let admin;
+        let student;
 
-        if (loggedIn) admin = JSON.parse(loggedIn)
-        dispatch({ type: 'SIGN_IN', payload: loggedIn })
+        if (loggedIn) student = JSON.parse(loggedIn)
+        dispatch({ type: 'SIGN_IN', payload: student })
+        setIsLoading(false)
     }, [])
     return (
-        <StudentAuthContext.Provider value={{ state, dispatch }}>
+        <StudentAuthContext.Provider value={{ state: { student: state.student, isLoading }, dispatch }}>
             {children}
         </StudentAuthContext.Provider>
     )

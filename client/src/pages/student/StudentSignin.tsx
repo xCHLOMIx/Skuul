@@ -64,7 +64,7 @@ const StudentSignin: React.FC = () => {
                                     key={index}
                                     type="text"
                                     maxLength={1}
-                                    className='input text-center'
+                                    className='input text-center pwd'
                                     onChange={(e) => handleChange(e, index)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}
                                 />

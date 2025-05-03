@@ -33,16 +33,11 @@ export const AdminAuthContextProvider = ({ children }: { children: ReactNode }) 
         const result = localStorage.getItem('admin')
         let admin = null
 
-        if (result) {
-            admin = JSON.parse(result)
-        }
-
-        if (admin) {
-            dispatch({ type: 'SIGNIN', payload: admin })
-        }
+        if (result) admin = JSON.parse(result)
+        dispatch({ type: 'SIGNIN', payload: admin })
         setIsLoading(false)
     }, [])
-    
+
     return (
         <AdminAuthContext.Provider value={{ state: { admin: state.admin, isLoading }, dispatch }}>
             {children}

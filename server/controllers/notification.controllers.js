@@ -1,14 +1,14 @@
 const Book = require('../models/book.models')
 const Student = require('../models/student.models')
 const Notification = require('../models/notification.models')
-const { default: mongoose } = require('mongoose')
 
 exports.getNotifications = async (req, res) => {
-    const student = new mongoose.Types.ObjectId("67f3ded9cfae976d7cb9c618")
+    const { id } = req.params
+
     const notifications = await Notification.aggregate([
         {
             $match: {
-                student: student
+                student: id
             }
         },
         {
@@ -25,7 +25,7 @@ exports.getNotifications = async (req, res) => {
     res.status(200).json(notifications)
 
     setTimeout(async () => {
-        await Notification.updateMany({ student: student }, { $set: { status: "Read" } })
+        await Notification.updateMany({ student: id }, { $set: { status: "Read" } })
     }, 5000)
 }
 

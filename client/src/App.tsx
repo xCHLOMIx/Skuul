@@ -6,15 +6,15 @@ import UniversalLayout from "./layouts/UniversalLayout"
 
 function App() {
   return (
-    <AdminAuthContextProvider>
-      <StudentAuthContextProvider>
+    <StudentAuthContextProvider>
+      <AdminAuthContextProvider>
         <BookContextProvider>
           <AlertContextProvider>
             <UniversalLayout />
           </AlertContextProvider>
         </BookContextProvider>
-      </StudentAuthContextProvider>
-    </AdminAuthContextProvider>
+      </AdminAuthContextProvider>
+    </StudentAuthContextProvider>
   )
 }
 

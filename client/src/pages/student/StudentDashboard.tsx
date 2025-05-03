@@ -1,18 +1,24 @@
 import React from 'react'
 import { useFetch } from '../../hooks/universal/useFetch'
 
+interface Student {
+  id: string,
+  name: string,
+  token: string
+}
+
 interface Prop {
-  student: string;
+  student: Student
 }
 
 const StudentDashboard: React.FC<Prop> = ({ student }) => {
   const books = useFetch("/api/books")
-
+  console.log(student.name)
   return (
     <div>
       <div>
         <h1 className='text-3xl font-bold text-primary'>Dashboard</h1>
-        <span className='text-sm text-alt3'>Welcome back, <span className='font-bold capitalize'>{student.toLowerCase()}</span></span>
+        <span className='text-sm text-alt3'>Welcome back, <span className='font-bold capitalize'>{student.name.toLowerCase()}</span></span>
       </div>
       <div className='mt-5'>
         <h2 className='font-bold text-2xl text-primary'>Overview</h2>

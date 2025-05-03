@@ -15,7 +15,7 @@ function UniversalLayout() {
 
     return (
         <>
-            {!adminState.isLoading &&
+            {!adminState.isLoading && !studentState.isLoading &&
                 <div className="h-screen">
                     <div className={`${state.alert ? "top-0" : "-top-10"} transition-all duration-500 ease-in-out border border-green-200 bg-green-100 z-50 absolute w-full h-10 flex items-center justify-center text-sm text-center font-bold text-green-500`}>
                         <h4>{state.alert}</h4>
