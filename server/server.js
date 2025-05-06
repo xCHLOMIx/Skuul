@@ -9,7 +9,7 @@ const studentRoutes = require('./routes/student.routes')
 const adminRoutes = require('./routes/admin.routes')
 const notificationRoutes = require('./routes/notification.routes')
 
-mongoose.connect('mongodb://localhost:27017/Skuul')
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Connected and running PORT ${PORT}`)

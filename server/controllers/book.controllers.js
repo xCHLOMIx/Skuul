@@ -1,6 +1,5 @@
 const Book = require('../models/book.models')
 const Student = require('../models/student.models')
-const Notification = require('../models/notification.models')
 
 exports.getBooks = async (req, res) => {
     const books = await Book.find().sort({ title: 1 })
@@ -86,7 +85,6 @@ exports.returnBook = async (req, res) => {
             }
 
             if (summary) {
-                console.log("Yes")
                 read += 1
             }
 
@@ -106,7 +104,6 @@ exports.returnBook = async (req, res) => {
         }
 
         books = books.filter((book) => !returns.includes(String(book)))
-        console.log(books)
 
         await Student.findOneAndUpdate(
             { _id: student },
