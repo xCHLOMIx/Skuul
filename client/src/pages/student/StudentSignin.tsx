@@ -41,7 +41,7 @@ const StudentSignin: React.FC = () => {
             <div className='h-full w-full px-12 flex flex-col justify-center gap-4'>
                 <div className='flex items-center gap-3'>
                     <GoShieldLock color='#D55A29' size={32} />
-                    <h1 className='text-2xl font-bold'>Student Login</h1>
+                    <h1 className='text-2xl font-bold'>Student Sign in</h1>
                 </div>
                 {error && <ErrorComponent error={error} /> }
                 <form onSubmit={handleSubmit} className='w-full flex flex-col gap-4'>

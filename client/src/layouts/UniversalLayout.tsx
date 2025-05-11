@@ -7,8 +7,8 @@ import { useAlertContext } from "../hooks/universal/useAlertContext"
 import { useAdminAuthContext } from "../hooks/admin/useAdminAuthContext"
 import StudentLayout from "./StudentLayout"
 import { useStudentAuthContext } from "../hooks/student/useStudentAuthContext"
-import BorrowBookPage from "../pages/BorrowBookPage"
-import BookReturnPage from "../pages/BookReturnPage"
+import BorrowBookPage from "../pages/universal/BorrowBookPage"
+import BookReturnPage from "../pages/universal/BookReturnPage"
 
 function UniversalLayout() {
     const { state } = useAlertContext()
@@ -38,7 +38,7 @@ function UniversalLayout() {
                             />
                             <Route
                                 path='/student/signin'
-                                element={<StudentSignin />}
+                                element={!studentState.student ? <StudentSignin /> : <Navigate to="/admin/dashboard" />}
                             />
                             <Route
                                 path='/student/signup'

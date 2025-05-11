@@ -1,5 +1,6 @@
 const Book = require('../models/book.models')
 const Student = require('../models/student.models')
+const bcrypt = require('bcryptjs')
 
 exports.getBooks = async (req, res) => {
     const books = await Book.find().sort({ title: 1 })
@@ -24,9 +25,14 @@ exports.createBook = async (req, res) => {
 }
 
 exports.borrowBook = async (req, res) => {
-    const { student, borrow } = req.body
+    const { student, borrow, pin } = req.body
 
+    
     try {
+        if (!student || borrow.length <= 0 || !pin) {
+            throw Error("All fields are required");
+        }
+        
         const theStudent = await Student.findOne({ _id: student })
         let books = theStudent['books']
 
@@ -58,6 +64,10 @@ exports.borrowBook = async (req, res) => {
         }
         books = [...books, ...borrowed]
 
+        const check = await bcrypt.compare(pin, theStudent.pin)
+
+        if (pin.length < 6) throw Error("PIN must be 6 digits");
+        if (!check) throw Error("Incorrect password");
 
         await Student.findOneAndUpdate({ _id: student }, { $set: { books: books } })
 
