@@ -32,7 +32,7 @@ interface Prop {
 
 const StudentNotifications: React.FC<Prop> = ({ student }) => {
     const { data, isLoading }: { data: NotificationInteface[], isLoading: boolean } = useFetch(`/api/notifications/${student.id}`)
-
+    console.log(data)
     return (
         <div className='h-full'>
             <div>
@@ -41,7 +41,7 @@ const StudentNotifications: React.FC<Prop> = ({ student }) => {
             </div>
             <div className={`${!data.length ? "flex justify-center items-center h-full" : ""} ${data.length ? "mt-5" : "-mt-16"} h-full`}>
                 <div className='flex justify-between'>
-                    {data.length ?
+                    {(data.length && !isLoading) ?
                         (<h2 className='font-bold text-2xl text-primary'>
                             All notifications
                         </h2>) : (
