@@ -37,7 +37,7 @@ exports.signIn = async (req, res) => {
 }
 
 exports.getStudents = async (req,res) => {
-    const students = Student.find()
+    const students = await Student.find()
 
     res.status(200).json(students);
 }
