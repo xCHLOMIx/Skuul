@@ -10,6 +10,14 @@ exports.getBooks = async (req, res) => {
     res.status(200).json(books)
 }
 
+exports.availableBooks = async (req, res) => {
+    const books = await Book.find({ status: "Available" })
+
+    if (books.length <= 0) return res.status(404).json({ message: "No books found" })
+
+    res.status(200).json(books)
+}
+
 exports.createBook = async (req, res) => {
     const { title, author, quantity } = req.body
 
@@ -27,12 +35,12 @@ exports.createBook = async (req, res) => {
 exports.borrowBook = async (req, res) => {
     const { student, borrow, pin } = req.body
 
-    
+
     try {
         if (!student || borrow.length <= 0 || !pin) {
             throw Error("All fields are required");
         }
-        
+
         const theStudent = await Student.findOne({ _id: student })
         let books = theStudent['books']
 
