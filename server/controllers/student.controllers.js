@@ -35,3 +35,9 @@ exports.signIn = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
+
+exports.getStudents = async (req,res) => {
+    const students = Student.find()
+
+    res.status(200).json(students);
+}

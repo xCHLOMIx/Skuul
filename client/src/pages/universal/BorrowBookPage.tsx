@@ -28,7 +28,7 @@ interface BookInterface {
 }
 
 const BorrowBookPage: React.FC = () => {
-    const { data }: { data: BookInterface[], isLoading: boolean } = useFetch("/api/books")
+    const { data }: { data: BookInterface[], isLoading: boolean } = useFetch("/api/books/available")
 
     const [searchStudent, setStudentSearch] = useState<string>('');
     const [searchBook, setBookSearch] = useState<string>('');
@@ -46,9 +46,9 @@ const BorrowBookPage: React.FC = () => {
         const isSelected = books.some((b) => b._id === book._id);
 
         if (isSelected) {
-            setBooks(books.filter((b) => b._id !== book._id)); // Deselect the book
+            setBooks(books.filter((b) => b._id !== book._id));
         } else {
-            setBooks([...books, book]); // Select the book
+            setBooks([...books, book]);
         }
     };
 
@@ -60,6 +60,13 @@ const BorrowBookPage: React.FC = () => {
         if (e.key === "Backspace" && e.target.value === '' && index > 0) inputRefs.current[index - 1].focus()
     }
     const [form, setForm] = useState<number>(1);
+
+    const handleSubmit = ()  => {
+        const theBooks = books.map((book) => book._id);
+
+
+        console.log(theBooks)
+    }
     return (
         <div className='bg-white h-screen overflow-hidden w-full flex justify-center relative'>
             <div className={`absolute ${form == 2 || form == 3 ? "-translate-y-full" : ""} transition duration-500 flex w-full max-w-[1000px] h-screen items-start flex-col gap-10 justify-center`}>
@@ -175,7 +182,7 @@ const BorrowBookPage: React.FC = () => {
                     </div>
                     <div className='w-full flex flex-col gap-2 mt-5'>
                         <p className="text-sm text-gray-500">To confirm you want to borrow {books.map(b => b.title).join(', ')} click below</p>
-                        <PrimaryButton text='Borrow books' styles='px-5 flex w-max' />
+                        <PrimaryButton text='Borrow books' handleClick={handleSubmit} styles='px-5 flex w-max' />
                     </div>
                 </div>
             </div>
