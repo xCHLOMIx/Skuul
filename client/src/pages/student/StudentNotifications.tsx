@@ -53,7 +53,7 @@ const StudentNotifications: React.FC<Prop> = ({ student }) => {
                     }
                 </div>
                 <div className='mt-3 grid grid-cols-1 gap-3.5'>
-                    {isLoading && <BorrowerLoading />}
+                    {/* {isLoading && <BorrowerLoading />} */}
                     {data && data.map((notification) => (
                         <Notification key={notification._id} notification={notification} />
                     ))}

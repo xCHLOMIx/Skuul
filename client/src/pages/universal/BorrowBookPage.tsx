@@ -6,6 +6,8 @@ import BookBorrow from '../../components/universal/BookBorrow'
 import { PiCaretCircleLeftLight } from 'react-icons/pi'
 import { MdOutlineError } from 'react-icons/md'
 import { GoCheckCircleFill } from 'react-icons/go'
+import MainNavbar from '../../components/universal/MainNavbar'
+import { useNavigate } from 'react-router-dom'
 
 interface StudentInterface {
     _id: string,
@@ -33,9 +35,10 @@ const BorrowBookPage: React.FC = () => {
     // Form one variables
     const { data: students }: { data: StudentInterface[] } = useFetch("/api/students/")
     const [searchStudent, setStudentSearch] = useState<string>('');
-    
+
     const studentResults: StudentInterface[] = students.filter((student) => `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchStudent.toLowerCase()));
     const [theStudent, setTheStudent] = useState<StudentInterface>();
+    const router = useNavigate()
 
     // Form two variables
     const { data }: { data: BookInterface[], isLoading: boolean } = useFetch("/api/books/available")
@@ -98,11 +101,10 @@ const BorrowBookPage: React.FC = () => {
                 setTheStudent(undefined)
                 setBooks([])
                 setForm(1)
-                const timer = setTimeout(() => {
-                    setSuccess(false)
-                }, 4000)
 
-                return () => clearTimeout(timer)
+                const timer = setTimeout(() => {
+                    router('/book/borrow')
+                }, 4000)
             }
         }
 
@@ -110,7 +112,8 @@ const BorrowBookPage: React.FC = () => {
     }
     return (
         <div className='bg-white h-screen overflow-hidden w-full flex justify-center relative'>
-            <div className={`absolute ${form == 2 || form == 3 ? "-translate-y-full" : ""} ${success ? "hidden": "flex"} transition duration-500 w-full max-w-[1000px] h-screen items-start flex-col gap-10 justify-center`}>
+            <MainNavbar theLink="/book/return" text='Return book' />
+            <div className={`absolute ${form == 2 || form == 3 ? "-translate-y-full" : ""} ${success ? "hidden" : "flex"} transition duration-500 w-full max-w-[1000px] h-screen items-start flex-col gap-10 justify-center`}>
                 {
                     !searchStudent &&
                     <div className='w-full'>
@@ -149,7 +152,7 @@ const BorrowBookPage: React.FC = () => {
                     }
                 </div>
             </div>
-            <div className={`${form == 1 ? "translate-y-full" : ""} ${form == 2 ? "translate-y-0" : ""} ${success ? "hidden": "flex"} ${form == 3 ? "-translate-y-full" : ""} transition max-w-[900px] duration-500 absolute w-full h-screen items-start flex-col gap-10 justify-center`}>
+            <div className={`${form == 1 ? "translate-y-full" : ""} ${form == 2 ? "translate-y-0" : ""} ${success ? "hidden" : "flex"} ${form == 3 ? "-translate-y-full" : ""} transition max-w-[900px] duration-500 absolute w-full h-screen items-start flex-col gap-10 justify-center`}>
                 {
                     !searchBook &&
                     <div className='w-full'>
@@ -199,7 +202,7 @@ const BorrowBookPage: React.FC = () => {
                     }
                 </div>
             </div>
-            <div className={`${form == 1 || form == 2 ? "translate-y-full" : ""} ${success ? "hidden": "flex"} absolute w-full transition max-w-[900px] duration-500 h-screen items-start flex-col gap-5 justify-center`}>
+            <div className={`${form == 1 || form == 2 ? "translate-y-full" : ""} ${success ? "hidden" : "flex"} absolute w-full transition max-w-[900px] duration-500 h-screen items-start flex-col gap-5 justify-center`}>
                 {
                     <div className='w-full'>
                         <h1 className='font-bold text-6xl'>Safety first 👀</h1>
@@ -237,7 +240,7 @@ const BorrowBookPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className={`h-screen ${!success ? "hidden": "flex"} flex-col items-center gap-5 justify-center`}>
+            <div className={`h-screen ${!success ? "hidden" : "flex"} flex-col items-center gap-5 justify-center`}>
                 <GoCheckCircleFill className='text-green-400' size="140px" />
                 <div className='flex flex-col items-center'>
                     <p className="text-lg font-bold max-w-[400px] text-center">Successfully borrowed {books.map(b => b.title).join(', ')}</p>
