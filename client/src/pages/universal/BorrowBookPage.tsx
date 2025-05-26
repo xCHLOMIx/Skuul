@@ -105,6 +105,8 @@ const BorrowBookPage: React.FC = () => {
                 const timer = setTimeout(() => {
                     router('/book/borrow')
                 }, 4000)
+
+                return () => clearTimeout(timer);
             }
         }
 

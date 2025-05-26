@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import Student from '../../components/universal/Student'
 import PrimaryButton from '../../components/universal/PrimaryButton'
 import { useFetch } from '../../hooks/universal/useFetch'
 import BookBorrow from '../../components/universal/BookBorrow'
 import { PiCaretCircleLeftLight } from 'react-icons/pi'
-import { MdOutlineError } from 'react-icons/md'
 import { GoCheckCircleFill } from 'react-icons/go'
 import MainNavbar from '../../components/universal/MainNavbar'
 import { useNavigate } from 'react-router-dom'
@@ -40,9 +39,7 @@ const BorrowBookPage: React.FC = () => {
   const [theStudent, setTheStudent] = useState<StudentInterface>();
 
   // Form two variables
-  const { data }: { data: BookInterface[], isLoading: boolean } = useFetch("/api/books/available")
   const [searchBook, setBookSearch] = useState<string>('');
-  const bookResults: BookInterface[] = data.filter((book) => book.title.toLowerCase().includes(searchBook.toLowerCase()));
   const [books, setBooks] = useState<BookInterface[]>([]);
   const [summary, setSummary] = useState<boolean>(false);
   const router = useNavigate()
@@ -55,18 +52,6 @@ const BorrowBookPage: React.FC = () => {
     } else {
       setBooks([...books, book]);
     }
-  }
-
-  // Form three variables
-  const inputRefs = useRef<HTMLInputElement[]>([])
-
-  // Form three functions
-  const handleChange = (e: any, index: number) => {
-    if (e.target.value.length > 0 && index < inputRefs.current.length - 1) inputRefs.current[index + 1].focus()
-  }
-
-  const handleKeyDown = (e: any, index: number) => {
-    if (e.key === "Backspace" && e.target.value === '' && index > 0) inputRefs.current[index - 1].focus()
   }
 
   // Error, Loading and success
@@ -103,9 +88,8 @@ const BorrowBookPage: React.FC = () => {
         setForm(1)
 
         const timer = setTimeout(() => {
-          router('/book/borrow')
+          router('/book/return')
         }, 4000)
-        // router('/book/return')
 
         return () => clearTimeout(timer)
       }

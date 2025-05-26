@@ -15,6 +15,7 @@ const AdminSignin: React.FC = () => {
 
         await login(email, password)
     }
+    
     return (
         <div className='h-full w-full flex overflow-hidden'>
             <div className='h-full max-lg:hidden min-w-2/3 flex justify-center items-center bg-primary'>
