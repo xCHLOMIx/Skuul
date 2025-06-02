@@ -5,9 +5,9 @@ import { useFetch } from '../../hooks/universal/useFetch'
 import BookBorrow from '../../components/universal/BookBorrow'
 import { PiCaretCircleLeftLight } from 'react-icons/pi'
 import { MdOutlineError } from 'react-icons/md'
-import { GoCheckCircleFill } from 'react-icons/go'
 import MainNavbar from '../../components/universal/MainNavbar'
 import { useNavigate } from 'react-router-dom'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 
 interface StudentInterface {
     _id: string,
@@ -102,11 +102,11 @@ const BorrowBookPage: React.FC = () => {
                 setBooks([])
                 setForm(1)
 
-                const timer = setTimeout(() => {
+                setTimeout(() => {
                     router('/book/borrow')
+                    setSuccess(false)
                 }, 4000)
 
-                return () => clearTimeout(timer);
             }
         }
 
@@ -243,7 +243,14 @@ const BorrowBookPage: React.FC = () => {
                 </div>
             </div>
             <div className={`h-screen ${!success ? "hidden" : "flex"} flex-col items-center gap-5 justify-center`}>
-                <GoCheckCircleFill className='text-green-400' size="140px" />
+                <div>
+                    {success &&
+                        <DotLottieReact
+                            src="/success.lottie"
+                            autoplay
+                        />
+                    }
+                </div>
                 <div className='flex flex-col items-center'>
                     <p className="text-lg font-bold max-w-[400px] text-center">Successfully borrowed {books.map(b => b.title).join(', ')}</p>
                     <p className='text-lg'>Thanks for using Skuul 🙂</p>
