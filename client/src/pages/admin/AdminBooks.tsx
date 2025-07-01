@@ -30,21 +30,21 @@ const AdminBooks: React.FC = () => {
     return (
         <div>
             <div>
-                <h1 className='text-3xl font-bold text-primary'>Books</h1>
-                <span className='text-sm text-alt3'>All books</span>
+                <h1 className='text-3xl max-md:text-2xl max-sm:text-xl font-bold text-primary'>Books</h1>
+                <span className='text-sm max-md:text-xs max-sm:text-[10] text-alt3'>All books</span>
             </div>
             <div className='mt-5'>
                 <div className='flex flex-col justify-between'>
                     <div className='flex justify-between'>
-                        <h2 className='font-bold text-2xl text-primary'>All books</h2>
-                        <button onClick={() => setForm(!form)} className='bg-primary p-3 border-2 flex items-center gap-3 transition duration-200 border-primary hover:text-primary hover:bg-white cursor-pointer text-white hover:border-primary'>
-                            <IoAdd size={24} className={`${form ? "rotate-45" : ""} transition-all duration-300`} />
+                        <h2 className='font-bold text-2xl max-md:text-xl max-sm:text-lg text-primary'>All books</h2>
+                        <button onClick={() => setForm(!form)} className='bg-primary p-3 border-2 flex items-center gap-3 max-md:text-sm max-sm:text-xs transition duration-200 border-primary hover:text-primary hover:bg-white cursor-pointer text-white hover:border-primary'>
+                            <IoAdd size={24} className={`${form ? "rotate-45" : ""} max-md:w-4 h-auto transition-all duration-300`} />
                             <span>{form ? "Close" : "Add book"}</span>
                         </button>
                     </div>
                     {form && <BookForm />}
                 </div>
-                <div className='mt-3 grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-3.5'>
+                <div className='mt-3 grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 gap-3.5'>
                     {isLoading &&
                         Array.from({ length: 5 }).map((_, index) => (
                             <BookLoading key={index} />

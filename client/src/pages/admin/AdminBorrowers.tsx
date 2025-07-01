@@ -35,14 +35,14 @@ const AdminBorrowers: React.FC = () => {
     return (
         <div>
             <div>
-                <h1 className='text-3xl font-bold text-primary'>Borrowers</h1>
-                <span className='text-sm text-alt3'>All students that borrowed books</span>
+                <h1 className='text-3xl max-md:text-2xl max-sm:text-xl font-bold text-primary'>Borrowers</h1>
+                <span className='text-sm max-md:text-xs max-sm:text-[10] text-alt3'>All students that borrowed books</span>
             </div>
             <div className='mt-5'>
                 <div className='flex flex-col justify-between'>
                     <div className='flex justify-between'>
-                        <h2 className='font-bold text-2xl text-primary'>All borrowers</h2>
-                        <PrimaryButton type='button' isLoading={false} handleClick={() => setForm(!form)} icon={<GoBell size={20} />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
+                        <h2 className='font-bold text-2xl max-md:text-xl max-sm:text-lg text-primary'>All borrowers</h2>
+                        <PrimaryButton type='button' isLoading={false} handleClick={() => setForm(!form)} icon={<GoBell size={20} className='max-md:w-5 max-sm:w-4 h-auto' />} text='Remind students' styles='py-2.5 flex items-center gap-3' />
                     </div>
                     {form && <ReminderForm />}
                 </div>

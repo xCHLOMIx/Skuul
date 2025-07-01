@@ -22,7 +22,7 @@ const AdminLayout: React.FC = () => {
                     <AdminSidebar admin={admin.title} />
                     <AdminBottomBar admin={admin.title} />
                 </div>
-                <div className='bg-alt2 w-full p-10 overflow-y-scroll bar'>
+                <div className='bg-alt2 w-full p-10 max-md:p-8 max-sm:p-7 overflow-y-scroll bar'>
                     <Routes>
                         <Route
                             path='/dashboard'
