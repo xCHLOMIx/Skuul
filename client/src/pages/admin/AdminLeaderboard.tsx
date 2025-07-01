@@ -35,18 +35,18 @@ const AdminLeaderboard: React.FC = () => {
     return (
         <div className='h-full'>
             <div>
-                <h1 className='text-3xl font-bold text-primary'>Leaderboard</h1>
-                <span className='text-sm text-alt3'>Leaderboard for the best readers</span>
+                <h1 className='text-3xl max-md:text-2xl max-sm:text-xl font-bold text-primary'>Leaderboard</h1>
+                <span className='text-sm max-md:text-xs max-sm:text-[10px] text-alt3'>Leaderboard for the best readers</span>
             </div>
             <div className={`${isLoading ? "flex justify-center items-center h-full" : ""} mt-5`}>
                 {!isLoading &&
                     <div className='flex justify-between'>
-                        <h2 className='font-bold text-2xl text-primary'>All readers</h2>
-                        <PrimaryButton type='button' isLoading={false} handleClick={() => { }} icon={<GrPowerReset size={20} />} text='Reset Leaderboard' styles='py-2.5 flex items-center gap-3' />
+                        <h2 className='font-bold text-2xl max-md:text-xl max-sm:text-lg text-primary'>All readers</h2>
+                        <PrimaryButton type='button' isLoading={false} handleClick={() => { }} icon={<GrPowerReset size={20} className='max-md:w-5 max-sm:w-4 h-auto' />} text='Reset Leaderboard' styles='py-2.5 flex items-center gap-3' />
                     </div>
                 }
                 {isLoading && <ScaleLoader color='#2D3355AA' height={30} width={4} />}
-                <div className="mt-3 grid grid-cols-1 gap-3.5">
+                <div className="mt-10 grid grid-cols-1 gap-3.5">
                     {data && data
                         .map((reader, index) => {
                             if (index === 0) {

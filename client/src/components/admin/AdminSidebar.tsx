@@ -17,7 +17,7 @@ const AdminSidebar: React.FC<Prop> = ({ admin }) => {
     }
 
     return (
-        <div className='bg-primary min-w-xs p-5 h-full flex flex-col justify-between'>
+        <div className='bg-primary min-w-xs p-5 h-full flex max-md:hidden flex-col justify-between'>
             <div className='flex flex-col gap-4 justify-between'>
                 <div>
                     <span className='font-bold text-xl text-white'>Skuul</span>

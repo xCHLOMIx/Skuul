@@ -5,6 +5,7 @@ import AdminDashboard from '../pages/admin/AdminDashboard'
 import AdminBooks from '../pages/admin/AdminBooks'
 import AdminBorrowers from '../pages/admin/AdminBorrowers'
 import AdminLeaderboard from '../pages/admin/AdminLeaderboard'
+import AdminBottomBar from '../components/admin/AdminBottomBar'
 
 const AdminLayout: React.FC = () => {
     const loggedIn = localStorage.getItem('admin')
@@ -16,8 +17,11 @@ const AdminLayout: React.FC = () => {
 
     return (
         <>
-            <div className='h-full flex'>
-                <AdminSidebar admin={admin.title} />
+            <div className='h-full w-full flex max-md:pb-16'>
+                <div className=''>
+                    <AdminSidebar admin={admin.title} />
+                    <AdminBottomBar admin={admin.title} />
+                </div>
                 <div className='bg-alt2 w-full p-10 overflow-y-scroll bar'>
                     <Routes>
                         <Route
