@@ -11,10 +11,10 @@ interface Book {
 }
 
 interface Prop {
-    book :  Book
+    book: Book
 }
 
-const Book : React.FC<Prop> = ({ book }) => {
+const Book: React.FC<Prop> = ({ book }) => {
     return (
         <div className='bg-white min-h-64 justify-between border border-alt5 p-3 flex flex-col'>
             <div className='text-end self-end'>

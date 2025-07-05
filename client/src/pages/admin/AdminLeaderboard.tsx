@@ -36,7 +36,7 @@ const AdminLeaderboard: React.FC = () => {
         <div className='h-full'>
             <div>
                 <h1 className='text-3xl max-md:text-2xl max-sm:text-xl font-bold text-primary'>Leaderboard</h1>
-                <span className='text-sm max-md:text-xs max-sm:text-[10px] text-alt3'>Leaderboard for the best readers</span>
+                <span className='text-sm max-md:text-xs max-sm:text-[10] text-alt3'>Leaderboard for the best readers</span>
             </div>
             <div className={`${isLoading ? "flex justify-center items-center h-full" : ""} mt-5`}>
                 {!isLoading &&
