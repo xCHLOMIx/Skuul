@@ -26,16 +26,16 @@ const StudentBooks: React.FC = () => {
     return (
         <div>
             <div>
-                <h1 className='text-3xl font-bold text-primary'>Books</h1>
-                <span className='text-sm text-alt3'>All books</span>
+                <h1 className='text-3xl max-md:text-2xl max-sm:text-xl font-bold text-primary'>Books</h1>
+                <span className='text-sm max-md:text-xs max-sm:text-[10] text-alt3'>All books</span>
             </div>
             <div className='mt-5'>
                 <div className='flex flex-col justify-between'>
                     <div className='flex justify-between'>
-                        <h2 className='font-bold text-2xl text-primary'>All books</h2>
+                        <h2 className='font-bold text-2xl max-md:text-xl max-sm:text-lg text-primary'>All books</h2>
                     </div>
                 </div>
-                <div className='mt-3 grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-3.5'>
+                <div className='mt-3 grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 gap-3.5'>
                     {isLoading &&
                         Array.from({ length: 5 }).map((_, index) => (
                             <BookLoading key={index} />

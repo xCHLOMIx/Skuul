@@ -1,10 +1,10 @@
 import React from 'react'
-import { links } from '../../data/adminLinks'
+import { links } from '../../data/studentLinks'
 import { FiLogOut } from "react-icons/fi";
 import { Link, useParams } from 'react-router-dom';
 import { useAdminSignout } from '../../hooks/admin/useAdminSignout';
 
-const AdminBottomBar: React.FC = () => {
+const StudentBottomBar: React.FC = () => {
     const theLink = useParams()['*']
     const { logout } = useAdminSignout()
 
@@ -31,4 +31,4 @@ const AdminBottomBar: React.FC = () => {
     )
 }
 
-export default AdminBottomBar
+export default StudentBottomBar

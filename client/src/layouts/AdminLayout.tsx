@@ -20,7 +20,7 @@ const AdminLayout: React.FC = () => {
             <div className='h-full w-full flex max-md:pb-16'>
                 <div className=''>
                     <AdminSidebar admin={admin.title} />
-                    <AdminBottomBar admin={admin.title} />
+                    <AdminBottomBar />
                 </div>
                 <div className='bg-alt2 w-full p-10 max-md:p-8 max-sm:p-6 overflow-y-scroll bar'>
                     <Routes>

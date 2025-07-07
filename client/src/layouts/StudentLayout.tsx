@@ -6,15 +6,19 @@ import StudentLeaderboard from '../pages/student/StudentLeaderboard'
 import StudentNotifications from '../pages/student/StudentNotifications'
 import StudentBooks from '../pages/student/StudentBooks'
 import { useStudentAuthContext } from '../hooks/student/useStudentAuthContext'
+import StudentBottomBar from '../components/student/StudentBottomBar'
 
 const StudentLayout: React.FC = () => {
     const { state: studentState } = useStudentAuthContext()
     console.log(studentState.student.name)
     return (
         <>
-            <div className='h-full flex'>
-                <StudentSidebar student={studentState.student} />
-                <div className='bg-alt2 w-full p-10 overflow-y-scroll bar'>
+            <div className='h-full w-full flex max-md:pb-16'>
+                <div>
+                    <StudentSidebar student={studentState.student} />
+                    <StudentBottomBar />
+                </div>
+                <div className='bg-alt2 w-full p-10 max-md:p-8 max-sm:p-6 overflow-y-scroll bar'>
                     <Routes>
                         <Route
                             path='/dashboard'

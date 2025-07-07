@@ -25,36 +25,42 @@ interface Props {
 
 const Notification: React.FC<Props> = ({ notification }) => {
     return (
-        <div className='bg-white border flex flex-col gap-3 border-alt4 p-4'>
+        <div className='bg-white border flex flex-col gap-3 border-alt4 p-4 max-md:p-3 max-sm:p-2'>
             <div className='flex items-start justify-between gap-3'>
                 <div className="flex items-center gap-3">
                     <div className="bg-primary p-2.5">
-                        <VscLibrary size={24} color='white' />
+                        <VscLibrary size={24} className="max-md:w-5 max-sm:w-4 h-auto" color='white' />
                     </div>
                     <div>
-                        <h2 className='font-semibold text-xl'>Library</h2>
-                        <span className="text-alt3">Book return notification</span>
+                        <h2 className='font-semibold text-xl max-md:text-lg max-sm:text-base'>Library</h2>
+                        <span className="text-alt3 max-md:text-sm max-sm:text-xs">Book return notification</span>
                     </div>
                 </div>
-                <div className={`flex gap-3 items-center ${notification.status != 'Read' ? 'bg-red-400' : 'bg-alt7' } p-2 px-3 font-bold text-white`}>
-                    {notification.status != 'Read' && <PiBellRinging size={20} />}
-                    {notification.status == 'Read' && <PiBell size={20} color='white' />}
-                    <span>{notification.status}</span>
+                <div className={`flex gap-3 items-center ${notification.status != 'Read' ? 'bg-red-400' : 'bg-alt7'} p-2 px-3 max-md:px-2 font-bold text-white`}>
+                    {notification.status != 'Read' && <PiBellRinging size={20} className="max-md:w-4.5 max-sm: max-sm:w-4 h-auto" />}
+                    {notification.status == 'Read' && <PiBell size={20} color='white' className="max-md:w-4.5 max-sm: max-sm:w-4 h-auto" />}
+                    <span className="max-md:text-sm max-sm:text-xs">{notification.status}</span>
                 </div>
             </div>
             <div className="flex flex-col gap-3">
-                <p>{notification.student[0].firstName}, we’d love to remind you to return the following books to the library:</p>
+                <p className="max-md:text-sm max-sm:text-xs">{notification.student[0].firstName}, we’d love to remind you to return the following books to the library:</p>
                 {notification.books.map((book) => (
                     <div key={book} className='ml-5 flex flex-col gap-2.5'>
                         <div className='flex items-center text-base font-semibold gap-2.5'>
-                            <div className='bg-[#00000010] p-2.5 w-max rounded-lg'>
+                            <div className='bg-[#00000010] p-2.5 max-md:p-2 w-max rounded-lg'>
                                 <RiBook2Line size={16} />
                             </div>
-                            <h3>{book}</h3>
+                            <h3 className="max-md:text-sm max-sm:text-xs">{book}</h3>
                         </div>
                     </div>
                 ))}
-                <p>Please return them not later than <span className="font-semibold">{new Date(notification.deadline).toLocaleDateString()}</span></p>
+                <p className="max-md:text-sm max-sm:text-xs">
+                    Please return them not later than
+                    &nbsp;
+                    <span className="font-semibold">
+                        {new Date(notification.deadline).toLocaleDateString()}
+                    </span>
+                </p>
             </div>
         </div>
     )

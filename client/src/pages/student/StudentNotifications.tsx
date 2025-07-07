@@ -36,13 +36,13 @@ const StudentNotifications: React.FC<Prop> = ({ student }) => {
     return (
         <div className='h-full'>
             <div>
-                <h1 className='text-3xl font-bold text-primary'>Notifications</h1>
-                <span className='text-sm text-alt3'>These are Notifications for book return</span>
+                <h1 className='text-3xl max-md:text-2xl max-sm:text-xl font-bold text-primary'>Notifications</h1>
+                <span className='text-sm max-md:text-xs max-sm:text-[10] text-alt3'>These are Notifications for book return</span>
             </div>
             <div className={`${!data.length ? "flex justify-center items-center h-full" : ""} ${data.length ? "mt-5" : "-mt-16"} h-full`}>
                 <div className='flex justify-between'>
                     {(data.length && !isLoading) ?
-                        (<h2 className='font-bold text-2xl text-primary'>
+                        (<h2 className='font-bold text-2xl max-md:text-xl max-sm:text-lg text-primary'>
                             All notifications
                         </h2>) : (
                             <div className='font-bold flex justify-center flex-col items-center text-xl gap-5 text-alt7'>
