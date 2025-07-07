@@ -53,7 +53,6 @@ const StudentSignin: React.FC = () => {
                             className='input'
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <span>{email}</span>
                     </div>
                     <div className='flex flex-col gap-2.5'>
                         <label htmlFor="" className='font-light'>PIN:</label>
