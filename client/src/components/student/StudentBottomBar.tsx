@@ -2,14 +2,14 @@ import React from 'react'
 import { links } from '../../data/studentLinks'
 import { FiLogOut } from "react-icons/fi";
 import { Link, useParams } from 'react-router-dom';
-import { useAdminSignout } from '../../hooks/admin/useAdminSignout';
+import { useStudentSignout } from '../../hooks/student/useStudentSignout';
 
 const StudentBottomBar: React.FC = () => {
     const theLink = useParams()['*']
-    const { logout } = useAdminSignout()
+    const { signOut } = useStudentSignout()
 
     const handleClick = async () => {
-        logout()
+        signOut()
     }
 
     return (
