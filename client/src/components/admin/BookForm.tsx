@@ -25,7 +25,7 @@ export const BookForm = () => {
         const postData = async () => {
             const response = await fetch('/api/books/add', {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-type': 'application/json',
                     'Authorization': `Bearer ${state.admin.token}`
                 },
@@ -55,9 +55,9 @@ export const BookForm = () => {
         postData()
     }
     return (
-        <div className={`grid grid-cols-4 gap-2.5 w-full mt-3 bg-white p-4 border border-alt5`}>
+        <div className={`grid grid-cols-4 max-lg:grid-cols-1 gap-2.5 w-full mt-3 bg-white p-4 border border-alt5`}>
             <div className="col-span-3">
-                {error && <ErrorComponent error={error} /> }
+                {error && <ErrorComponent error={error} />}
                 <form className='w-full flex flex-col gap-2.5' onSubmit={(e) => handleSubmit(e)}>
                     <div className='flex flex-col gap-2.5 w-full'>
                         <label htmlFor="" className='font-light'>Book title:</label>
@@ -89,7 +89,9 @@ export const BookForm = () => {
                     <PrimaryButton text='Save' styles='mt-2 w-max px-10' handleClick={() => { }} type='submit' icon={<LuSave size={22} />} isLoading={loading} />
                 </form>
             </div>
-            <Book book={book} />
+            <div className="max-lg:hidden h-full bg-red-100">
+                <Book book={book} styles="h-full" />
+            </div>
         </div>
     )
 }
