@@ -8,19 +8,13 @@ const createToken = async (id) => {
 }
 
 exports.signUp = async (req, res) => {
-    const { firstName, lastName, theClass, email, pin } = req.body
+    const { fullNames, theClass, email, pin, schoolCode } = req.body
 
     try {
-        const student = await Student.signup(firstName, lastName, theClass, email, pin)
-        res.status(200).json({ student })
+        const student = await Student.signup(fullNames, theClass, email, pin, schoolCode)
+        res.status(200).json(student)
     } catch (error) {
-        let theError = ''
-        if (error.message.includes(':')) {
-            theError += error.message.split(':')[2]
-        }
-
-        if (theError.length > 1) res.status(400).json({ error: theError.trim() })
-        else res.status(400).json({ error: error.message })
+        res.status(400).json({ error: error.message })
     }
 }
 

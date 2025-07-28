@@ -1,17 +1,17 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
+const School = require('./school.models')
 
 const studentSchema = new mongoose.Schema({
-    firstName: {
+    fullNames: {
         type: String,
         required: true,
-        minlength: [3, 'First name must have atleast 3 characters']
+        minlength: [16, 'Full names must have atleast 16 characters']
     },
     schoolCode: {
         type: String,
         required: true,
-        minlength: [3, 'Last name(s) must have atleast 3 characters']
     },
     theClass: {
         type: String,
@@ -36,9 +36,19 @@ const studentSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-studentSchema.statics.signup = async function (firstName, lastName, theClass, email, pin) {
-    if (!firstName || !lastName || !theClass || !email || !pin) {
+studentSchema.statics.signup = async function (fullNames, theClass, email, pin, schoolCode) {
+    if (!fullNames || !theClass || !email || !pin || !schoolCode) {
         throw Error("All fields are required")
+    }
+
+    const school = await School.findOne({ _id: schoolCode })
+
+    if (!school) {
+        throw Error("School not found. Format: SCH-XXXXX")
+    }
+
+    if (fullNames.length < 16) {
+        throw Error("Full names must have at least 16 characters")
     }
 
     if (!validator.isEmail(email)) {
@@ -51,12 +61,12 @@ studentSchema.statics.signup = async function (firstName, lastName, theClass, em
         throw Error("The Email already exists")
     }
 
-    if (pin.length < 6 || pin.length > 6 ) {
+    if (pin.length < 6 || pin.length > 6) {
         throw Error("PIN must be 6 digits")
     }
 
     const thePin = await bcrypt.hash(pin, 10)
-    const student = await this.create({ firstName, lastName, theClass, email, pin: thePin })
+    const student = await this.create({ fullNames, theClass, email, pin: thePin, schoolCode })
 
     return student
 }
