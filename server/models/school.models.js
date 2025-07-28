@@ -16,7 +16,7 @@ schoolSchema.pre('save', async function (next) {
             { new: true, upsert: true }
         )
 
-        this._id = `SCH${String(counter.seq).padStart(5, '0')}`
+        this._id = `SCH-${String(counter.seq).padStart(5, '0')}`
     }
     
     next()

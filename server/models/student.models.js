@@ -2,14 +2,13 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
-const classes = ["L3 SOD", "L3 NIT", "L3 MM", "L4 SOD", "L4 NIT", "L4 MM", "L5 SOD", "L5 NIT", "L5 MM"]
 const studentSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
         minlength: [3, 'First name must have atleast 3 characters']
     },
-    lastName: {
+    schoolCode: {
         type: String,
         required: true,
         minlength: [3, 'Last name(s) must have atleast 3 characters']
@@ -17,10 +16,6 @@ const studentSchema = new mongoose.Schema({
     theClass: {
         type: String,
         required: true,
-        enum: {
-            values: classes,
-            message: `Classes supported are ${classes.join()}`
-        }
     },
     email: {
         type: String,
