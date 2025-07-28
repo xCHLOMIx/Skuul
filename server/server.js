@@ -7,6 +7,7 @@ const PORT = process.env.PORT
 const bookRoutes = require('./routes/book.routes')
 const studentRoutes = require('./routes/student.routes')
 const adminRoutes = require('./routes/admin.routes')
+const schoolRoutes = require('./routes/school.routes')
 const notificationRoutes = require('./routes/notification.routes')
 
 mongoose.connect(process.env.MONGO_URI)
@@ -29,3 +30,4 @@ app.use('/api/books', bookRoutes)
 app.use('/api/notifications', notificationRoutes)
 app.use('/api/students', studentRoutes)
 app.use('/api/admin', adminRoutes)
+app.use('/api/schools', schoolRoutes)
